@@ -8,7 +8,7 @@ const Staff = () => {
 
     useEffect(() => {
         setActive(location.pathname)
-    }, [])
+    }, [location.pathname])
     return (
         <div>
             <Sections active={active} setActive={setActive} />

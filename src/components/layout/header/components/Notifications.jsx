@@ -23,7 +23,8 @@ const Notifications = ({ icon }) => {
 
     useEffect(() => {
         window.addEventListener('click', dropdownHide)
-        return window.removeEventListener('click', dropdownHide)
+        console.log(12)
+        // return window.removeEventListener('click', dropdownHide)
     }, [])
     return (
         <div className={cn('relative')}>
@@ -49,32 +50,47 @@ const Notifications = ({ icon }) => {
                     >
                         {notifications.length > 0 ? (
                             <>
-                                {notifications.map((notification) => {
-                                    return (
-                                        <div
-                                            className={
-                                                ' py-2 px-2 border mb-3 border-b-4 border-b-primary shadow-md rounded-md w-full'
-                                            }
-                                        >
-                                            <p>{notification.title}</p>
-                                            <Link
-                                                to={`/${
-                                                    notificationTypes.find(
-                                                        (ntf) =>
-                                                            ntf.value ===
-                                                            notification.notificationType
-                                                    ).name
-                                                }/check/${notification.id}`}
-                                                className={
-                                                    ' text-primary font-semibold text-sm w-full'
+                                {notifications.map(
+                                    (notification) => {
+                                        return (
+                                            <>
+                                                {
+                                                    notification.status ===1 && (
+                                                        <div
+                                                            className={
+                                                                ' py-2 px-2 border mb-3 border-b-4 border-b-primary shadow-md rounded-md w-full'
+                                                            }
+                                                        >
+                                                            <p>{notification.title}</p>
+                                                            <Link
+                                                                to={`/${
+                                                                    notificationTypes.find(
+                                                                        (ntf) =>
+                                                                            ntf.value ===
+                                                                            notification.notificationType
+                                                                    ).name
+                                                                }/check/${
+                                                                    notification.recordId
+                                                                }`}
+                                                                onClick={() =>
+                                                                    setIsActive(false)
+                                                                }
+                                                                className={
+                                                                    ' text-primary font-semibold text-sm w-full'
+                                                                }
+                                                                style={{ textAlign: 'end' }}
+                                                            >
+                                                                View
+                                                            </Link>
+                                                        </div>
+
+                                                    )
                                                 }
-                                                style={{ textAlign: 'end' }}
-                                            >
-                                                View
-                                            </Link>
-                                        </div>
-                                    )
-                                })}
+
+                                            </>
+                                        )
+                                    }
+                                )}
                             </>
                         ) : (
                             <h1>You dont have any notification ...</h1>

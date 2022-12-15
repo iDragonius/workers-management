@@ -7,3 +7,8 @@ export const getNotifications = async () => {
 export const getUserNotifications = async (id) => {
     return await $api.get(PREFIX + `/getbyuser/?userId=${id}`)
 }
+export const setNotificationStatus = async ({ notificationId, status }) => {
+    return await $api.post(
+        PREFIX + `/setstatus/?notificationId=${notificationId}&status=${status}`
+    )
+}

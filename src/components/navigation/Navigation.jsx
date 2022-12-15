@@ -40,6 +40,25 @@ import AdminList from '../pages/AdminList.jsx'
 import Notifications from '../../pages/notifications/Notifications.jsx'
 import PermissionsCheck from '../../pages/permissions/PermissionsCheck.jsx'
 import IllnessCheck from '../../pages/illness/IllnessCheck.jsx'
+import StaffChange from '../../pages/staffAdding/StaffChange.jsx'
+import WorkingHoursEdit from '../../pages/workingHours/WorkingHoursEdit.jsx'
+import DutyList from '../../pages/hr/duty/DutyList.jsx'
+import DutyAdd from '../../pages/hr/duty/DutyAdd.jsx'
+import DutyChange from '../../pages/hr/duty/DutyChange.jsx'
+import StateAdd from '../../pages/hr/state/StateAdd.jsx'
+import State from '../../pages/hr/state/State.jsx'
+import StateList from '../../pages/hr/state/StateList.jsx'
+import StateChange from '../../pages/hr/state/StateChange.jsx'
+import NonWorkingDaysList from '../../pages/hr/nonWorkingDays/NonWorkingDaysList.jsx'
+import NonWorkingDaysAdd from '../../pages/hr/nonWorkingDays/NonWorkingDaysAdd.jsx'
+import NonWorkingDaysChange from '../../pages/hr/nonWorkingDays/NonWorkingDaysChange.jsx'
+import AwardsList from '../../pages/hr/awards/AwardsList.jsx'
+import AwardsAdd from '../../pages/hr/awards/AwardsAdd.jsx'
+import AwardsChange from '../../pages/hr/awards/AwardsChange.jsx'
+import VacationList from '../../pages/vacation/VacationList.jsx'
+import VacationListUser from '../../pages/vacation/VacationListUser.jsx'
+import VacationCheck from '../../pages/vacation/VacationCheck.jsx'
+import VacationAdd from '../../pages/vacation/VacationAdd.jsx'
 
 const Navigation = () => {
     return (
@@ -65,13 +84,75 @@ const Navigation = () => {
                                 <Route
                                     path={'non-working-days'}
                                     element={<NonWorkingDays />}
+                                >
+                                    <Route
+                                        path={'list'}
+                                        element={<NonWorkingDaysList />}
+                                    />
+                                    <Route
+                                        path={'add'}
+                                        element={<NonWorkingDaysAdd />}
+                                    />
+
+                                    <Route
+                                        path={'change/:id'}
+                                        element={<NonWorkingDaysChange />}
+                                    />
+                                </Route>
+
+                                <Route path={'duty/'} element={<Duty />} >
+                                    <Route
+                                        path={'list'}
+                                        element={<DutyList />}
+                                    />
+                                    <Route
+                                        path={'add'}
+                                        element={<DutyAdd />}
+                                    />
+
+                                    <Route
+                                        path={'change/:id'}
+                                        element={<DutyChange />}
+                                    />
+                                </Route>
+                                <Route path={'state/'} element={<State/>}>
+                                    <Route
+                                        path={'list'}
+                                        element={<StateList />}
+                                    />
+                                    <Route
+                                        path={'add'}
+                                        element={<StateAdd />}
+                                    />
+
+                                    <Route
+                                        path={'change/:id'}
+                                        element={<StateChange />}
+                                    />
+                                </Route>
+                                <Route path={'awards/'} element={<Awards/>}>
+                                <Route
+                                    path={'list'}
+                                    element={<AwardsList />}
                                 />
-                                <Route path={'duty'} element={<Duty />} />
-                                <Route path={'awards'} element={<Awards />} />
+                                <Route
+                                    path={'add'}
+                                    element={<AwardsAdd />}
+                                />
+
+                                <Route
+                                    path={'change/:id'}
+                                    element={<AwardsChange />}
+                                />
+                            </Route>
                             </Route>
                             <Route path={'staff/'} element={<Staff />}>
                                 <Route path={'add'} element={<StaffAdding />} />
                                 <Route path={'list'} element={<StaffList />} />
+                                <Route
+                                    path={'change/:id'}
+                                    element={<StaffChange />}
+                                />
                             </Route>
 
                             <Route element={<RoleWrapper routeRole={'1'} />}>
@@ -92,7 +173,25 @@ const Navigation = () => {
                         <Route path={'salary'} element={<Salary />} />
                     </Route>
 
-                    <Route path={'vacation'} element={<Vacation />} />
+                    <Route path={'vacation'} element={<Vacation />} >
+                        <Route path={'list'} element={<VacationList />} />
+                        <Route element={<RoleWrapper routeRole={'2'} />}>
+                            <Route
+                                path={'admin-list'}
+                                element={<AdminList path={'vacation'} />}
+                            />
+                            <Route
+                                path={'list/:id'}
+                                element={<VacationListUser />}
+                            />
+                            <Route
+                                path={'check/:id'}
+                                element={<VacationCheck />}
+                            />
+                        </Route>
+                        <Route path={'add'} element={<VacationAdd />} />
+
+                    </Route>
                     <Route path={'permissions/'} element={<Permissions />}>
                         <Route path={'list'} element={<PermissionsList />} />
                         <Route element={<RoleWrapper routeRole={'2'} />}>
@@ -122,6 +221,10 @@ const Navigation = () => {
                             <Route
                                 path={'list/:id'}
                                 element={<WorkingHoursListUser />}
+                            />
+                            <Route
+                                path={'edit/:id'}
+                                element={<WorkingHoursEdit />}
                             />
                         </Route>
                         <Route path={'add'} element={<WorkingHoursAdd />} />

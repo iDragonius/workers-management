@@ -68,7 +68,7 @@ const Sidebar = () => {
 
                         <Navigation
                             name={'HR'}
-                            path={'/hr/non-working-days'}
+                            path={'/hr/non-working-days/list'}
                             active={active}
                             setActive={setActive}
                             icon={
@@ -89,7 +89,7 @@ const Sidebar = () => {
                     />
                     <Navigation
                         name={'Vacation'}
-                        path={'/vacation'}
+                        path={'/vacation/list'}
                         active={active}
                         setActive={setActive}
                         icon={<AiFillPicture size={24} color={'#000'} />}

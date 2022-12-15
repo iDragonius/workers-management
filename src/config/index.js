@@ -1,3 +1,6 @@
 export * from './rolesConf'
 export * from './dayTypes'
 export * from './permissionTypes.js'
+export * from './genderTypes'
+export * from './status'
+export * from './NotificationTypes'

@@ -1,37 +1,40 @@
 import React, { useEffect, useState } from 'react'
-import { fetchUsers } from '../../http/api/admin.js'
-import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { getAllStates } from '../../../http/api/states.js'
 import { Grid } from 'gridjs-react'
 import { h } from 'gridjs'
-import { setCurrentUserData } from '../../store/slices/adminSlice.js'
+import { getAllAwards } from '../../../http/api/awards.js'
 
-const AdminList = ({ path }) => {
-    useEffect(() => {
-        fetchUsers().then((res) => {
-            const tempData = []
-            res.data.map((user) => {
-                tempData.push([user.employeeId, user.firstName, user.lastName])
-            })
-            setData([...tempData])
-        })
-    }, [])
-    const dispatch = useDispatch()
+const AwardsList = () => {
     const navigate = useNavigate()
     const [data, setData] = useState([])
+
+    useEffect(() => {
+        getAllAwards().then(
+            awards=>{
+                const temp =[]
+                awards.data.map(award=>{
+                    temp.push([award.id, award.name, award.amount])
+                })
+                setData(temp)
+            }
+        )
+
+    }, [])
+
     return (
         <Grid
             resizable={true}
             sort={true}
-            search={true}
             data={data}
-            width={'min-content'}
+            search={true}
+
+            width={'max-content'}
             columns={[
                 'ID',
-                'First Name',
-                'Last Name',
-
-                ,
+                'Name',
+                'Amount',
                 {
                     name: 'Actions',
                     formatter: (cell, row) => {
@@ -41,19 +44,13 @@ const AdminList = ({ path }) => {
                                 className:
                                     'py-2  px-4 border rounded-md text-white bg-primary',
                                 onClick: () => {
+
                                     navigate(
-                                        `/${path}/list/${row.cells[0].data}`
-                                    )
-                                    dispatch(
-                                        setCurrentUserData({
-                                            employeeId: row.cells[0].data,
-                                            firstName: row.cells[1].data,
-                                            lastName: row.cells[2].data,
-                                        })
+                                        `/hr/awards/change/${row.cells[0].data}`
                                     )
                                 },
                             },
-                            'Check'
+                            'Edit'
                         )
                     },
                 },
@@ -67,7 +64,8 @@ const AdminList = ({ path }) => {
                 limit: 5,
             }}
         />
+
     )
 }
 
-export default AdminList
+export default AwardsList

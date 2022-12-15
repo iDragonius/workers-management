@@ -10,12 +10,7 @@ const Sections = ({ active, setActive }) => {
                 active={active}
                 setActive={setActive}
             />
-            <Section
-                name={'Add'}
-                path={'/staff/add'}
-                active={active}
-                setActive={setActive}
-            />
+
         </div>
     )
 }
