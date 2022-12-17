@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Grid } from 'gridjs-react'
-import { getUserOvertimes } from '../../http/api/overtimes.js'
+import { deleteOvertime, getUserOvertimes } from '../../http/api/overtimes.js'
 import { useSelector } from 'react-redux'
 import { userData } from '../../store/slices/authSlice.js'
+import { h } from 'gridjs'
+import { deletePermission } from '../../http/api/permissions.js'
+import { toast } from 'react-toastify'
 
 const WorkingHoursList = () => {
     const [data, setData] = useState([])
@@ -27,7 +30,42 @@ const WorkingHoursList = () => {
             data={data}
             search={true}
             width={'max-content'}
-            columns={['ID', 'Date', 'Hours']}
+            columns={[
+                'ID',
+                'Date',
+                'Hours',
+                {
+                    name: 'Delete',
+                    formatter: (cell, row) => {
+                        return h(
+                            'button',
+                            {
+                                className:
+                                    'py-2  px-4 border rounded-md text-white font-semibold bg-red-500 ',
+                                onClick: () => {
+                                    deleteOvertime(row.cells[0].data).then(
+                                        () => {
+                                            toast.success(
+                                                'Additional Working hour successfully deleted!'
+                                            )
+
+                                            setData(
+                                                data.filter((wrk) => {
+                                                    return (
+                                                        wrk[0] !==
+                                                        +row.cells[0].data
+                                                    )
+                                                })
+                                            )
+                                        }
+                                    )
+                                },
+                            },
+                            'Delete'
+                        )
+                    },
+                },
+            ]}
             style={{
                 td: {
                     'min-width': '100px',

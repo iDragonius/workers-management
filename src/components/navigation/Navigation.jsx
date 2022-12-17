@@ -59,6 +59,13 @@ import VacationList from '../../pages/vacation/VacationList.jsx'
 import VacationListUser from '../../pages/vacation/VacationListUser.jsx'
 import VacationCheck from '../../pages/vacation/VacationCheck.jsx'
 import VacationAdd from '../../pages/vacation/VacationAdd.jsx'
+import PermissionsEdit from '../../pages/permissions/PermissionsEdit.jsx'
+import VacationEdit from '../../pages/vacation/VacationEdit.jsx'
+import IllnessEdit from '../../pages/illness/IllnessEdit.jsx'
+import IllnessView from '../../pages/illness/IllnessView.jsx'
+import VacationView from '../../pages/vacation/VacationView.jsx'
+import PermissionView from '../../pages/permissions/PermissionView.jsx'
+import StaffCheck from '../../pages/staffAdding/StaffCheck.jsx'
 
 const Navigation = () => {
     return (
@@ -100,22 +107,19 @@ const Navigation = () => {
                                     />
                                 </Route>
 
-                                <Route path={'duty/'} element={<Duty />} >
+                                <Route path={'duty/'} element={<Duty />}>
                                     <Route
                                         path={'list'}
                                         element={<DutyList />}
                                     />
-                                    <Route
-                                        path={'add'}
-                                        element={<DutyAdd />}
-                                    />
+                                    <Route path={'add'} element={<DutyAdd />} />
 
                                     <Route
                                         path={'change/:id'}
                                         element={<DutyChange />}
                                     />
                                 </Route>
-                                <Route path={'state/'} element={<State/>}>
+                                <Route path={'state/'} element={<State />}>
                                     <Route
                                         path={'list'}
                                         element={<StateList />}
@@ -130,21 +134,21 @@ const Navigation = () => {
                                         element={<StateChange />}
                                     />
                                 </Route>
-                                <Route path={'awards/'} element={<Awards/>}>
-                                <Route
-                                    path={'list'}
-                                    element={<AwardsList />}
-                                />
-                                <Route
-                                    path={'add'}
-                                    element={<AwardsAdd />}
-                                />
+                                <Route path={'awards/'} element={<Awards />}>
+                                    <Route
+                                        path={'list'}
+                                        element={<AwardsList />}
+                                    />
+                                    <Route
+                                        path={'add'}
+                                        element={<AwardsAdd />}
+                                    />
 
-                                <Route
-                                    path={'change/:id'}
-                                    element={<AwardsChange />}
-                                />
-                            </Route>
+                                    <Route
+                                        path={'change/:id'}
+                                        element={<AwardsChange />}
+                                    />
+                                </Route>
                             </Route>
                             <Route path={'staff/'} element={<Staff />}>
                                 <Route path={'add'} element={<StaffAdding />} />
@@ -152,6 +156,10 @@ const Navigation = () => {
                                 <Route
                                     path={'change/:id'}
                                     element={<StaffChange />}
+                                />
+                                <Route
+                                    path={'check/:id'}
+                                    element={<StaffCheck />}
                                 />
                             </Route>
 
@@ -173,8 +181,10 @@ const Navigation = () => {
                         <Route path={'salary'} element={<Salary />} />
                     </Route>
 
-                    <Route path={'vacation'} element={<Vacation />} >
+                    <Route path={'vacation'} element={<Vacation />}>
                         <Route path={'list'} element={<VacationList />} />
+                        <Route path={'view/:id'} element={<VacationView />} />
+                        <Route path={'edit/:id'} element={<VacationEdit />} />
                         <Route element={<RoleWrapper routeRole={'2'} />}>
                             <Route
                                 path={'admin-list'}
@@ -190,10 +200,14 @@ const Navigation = () => {
                             />
                         </Route>
                         <Route path={'add'} element={<VacationAdd />} />
-
                     </Route>
                     <Route path={'permissions/'} element={<Permissions />}>
                         <Route path={'list'} element={<PermissionsList />} />
+                        <Route path={'view/:id'} element={<PermissionView />} />
+                        <Route
+                            path={'edit/:id'}
+                            element={<PermissionsEdit />}
+                        />
                         <Route element={<RoleWrapper routeRole={'2'} />}>
                             <Route
                                 path={'admin-list'}
@@ -231,6 +245,8 @@ const Navigation = () => {
                     </Route>
                     <Route path={'illness/'} element={<Illness />}>
                         <Route path={'list'} element={<IllnessList />} />
+                        <Route path={'view/:id'} element={<IllnessView />} />
+                        <Route path={'edit/:id'} element={<IllnessEdit />} />
                         <Route element={<RoleWrapper routeRole={'2'} />}>
                             <Route
                                 path={'admin-list'}

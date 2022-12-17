@@ -3,11 +3,13 @@ import Button from '../../components/ui/buttons/button/Button.jsx'
 import { useSelector } from 'react-redux'
 import { userData } from '../../store/slices/authSlice.js'
 import { addIllness } from '../../http/api/illness.js'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 const IllnessAdd = () => {
     const user = useSelector(userData)
-
-    const [sicknessData, setSicknessData] = useState({
+    const navigate = useNavigate()
+    const [data, setData] = useState({
         startDate: '',
         endDate: '',
         note: '',
@@ -16,11 +18,13 @@ const IllnessAdd = () => {
         payPercent: '',
     })
     const add = async () => {
-        // add POST illness
-        await addIllness({ ...sicknessData, employeeId: user.employeeId })
+        await addIllness({ ...data, employeeId: user.employeeId }).then(() => {
+            toast.success('Bulleten added successfully!')
+            navigate('/illness/list')
+        })
     }
     const changeData = (e) => {
-        setSicknessData({ ...sicknessData, [e.target.name]: e.target.value })
+        setData({ ...data, [e.target.name]: e.target.value })
     }
     return (
         <div
@@ -41,7 +45,7 @@ const IllnessAdd = () => {
                                 Start
                             </label>
                             <input
-                                value={sicknessData.startDate}
+                                value={data.startDate}
                                 name={'startDate'}
                                 onChange={changeData}
                                 type="date"
@@ -59,7 +63,7 @@ const IllnessAdd = () => {
                                 End
                             </label>
                             <input
-                                value={sicknessData.endDate}
+                                value={data.endDate}
                                 name={'endDate'}
                                 onChange={changeData}
                                 type="date"
@@ -79,7 +83,7 @@ const IllnessAdd = () => {
                             </label>
                             <textarea
                                 style={{ resize: 'none' }}
-                                value={sicknessData.note}
+                                value={data.note}
                                 name={'note'}
                                 onChange={changeData}
                                 rows={4}
@@ -100,7 +104,7 @@ const IllnessAdd = () => {
                                 Document Number
                             </label>
                             <input
-                                value={sicknessData.documentNumber}
+                                value={data.documentNumber}
                                 name={'documentNumber'}
                                 onChange={changeData}
                                 type="text"
@@ -119,7 +123,7 @@ const IllnessAdd = () => {
                                 Clinic Name
                             </label>
                             <input
-                                value={sicknessData.clinicName}
+                                value={data.clinicName}
                                 name={'clinicName'}
                                 onChange={changeData}
                                 type="text"
@@ -138,7 +142,7 @@ const IllnessAdd = () => {
                                 Pay Percent
                             </label>
                             <input
-                                value={sicknessData.payPercent}
+                                value={data.payPercent}
                                 name={'payPercent'}
                                 onChange={changeData}
                                 type="text"

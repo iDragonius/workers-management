@@ -16,3 +16,6 @@ export const addAward = async (data) => {
 export const updateAward = async (data) => {
     return await $api.post(`${PREFIX}/update`, data)
 }
+export const deleteAward = async (id) => {
+    return await $api.post(PREFIX + '/delete', { id })
+}

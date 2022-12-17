@@ -1,25 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import Button from '../../components/ui/buttons/button/Button.jsx'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { userData } from '../../store/slices/authSlice.js'
 import {
     addIllness,
     getIllness,
     updateIllness,
 } from '../../http/api/illness.js'
+import Button from '../../components/ui/buttons/button/Button.jsx'
+import { getPermission } from '../../http/api/permissions.js'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { getEmployee } from '../../http/api/employee.js'
-import { setNotificationStatus } from '../../http/api/notification.js'
-import { notificationsData } from '../../store/slices/notificationSlice.js'
-import { IoIosReturnLeft } from 'react-icons/io'
-import notificationStatusChanger from '../../features/notificationStatusChanger.js'
-import { updatePermission } from '../../http/api/permissions.js'
+import { toast } from 'react-toastify'
+import Back from '../../components/ui/Back.jsx'
 
-const IllnessCheck = () => {
+const IllnessEdit = () => {
     const user = useSelector(userData)
-    const [currUser, setCurrUser] = useState({})
-    const notifications = useSelector(notificationsData)
-    const dispatch = useDispatch()
+    const location = useLocation()
+    const navigate = useNavigate()
     const [data, setData] = useState({
         startDate: '',
         endDate: '',
@@ -27,62 +23,46 @@ const IllnessCheck = () => {
         documentNumber: '',
         clinicName: '',
         payPercent: '',
+        id: '',
+        employeeId: '',
     })
-    const location = useLocation()
-    const navigate = useNavigate()
+
     useEffect(() => {
-        getIllness(location.pathname.split('/').at(-1)).then((illness) => {
+        getIllness(location.pathname.split('/').at(-1)).then((res) => {
             setData({
-                startDate: illness.data.startDate.slice(0, 10),
-                endDate: illness.data.endDate.slice(0, 10),
-                note: illness.data.note,
-                documentNumber: illness.data.documentNumber,
-                clinicName: illness.data.clinicName,
-                payPercent: illness.data.payPercent,
-            })
-            getEmployee(illness.data.employeeId).then((user) => {
-                setCurrUser(user.data)
+                startDate: res.data.startDate.slice(0, 10),
+                endDate: res.data.endDate.slice(0, 10),
+                note: res.data.note,
+                documentNumber: res.data.documentNumber,
+                clinicName: res.data.clinicName,
+                payPercent: res.data.payPercent,
+                employeeId: res.data.employeeId,
+                id: res.data.id,
             })
         })
     }, [])
 
+    const update = async () => {
+        await updateIllness(data).then(() => {
+            toast.success('Bulleten successfully edited!')
+            navigate(-1)
+        })
+    }
     const changeData = (e) => {
         setData({ ...data, [e.target.name]: e.target.value })
     }
     return (
         <>
+            <Back />
             <div
                 className={
-                    'py-3 px-5 bg-primary w-[700px] flex items-center rounded-md  mb-4 drop-shadow-md'
+                    'bg-white px-20 py-5 rounded-xl shadow-md w-max flex flex-col items-center mt-10'
                 }
             >
-                <div
-                    className={
-                        ' py-2 px-3 w-max bg-white flex items-center rounded-md shadow-md cursor-pointer mr-4 '
-                    }
-                    onClick={() => navigate(-1)}
-                >
-                    <IoIosReturnLeft size={32} color={'#377DFF'} />
-                    <span
-                        className={'text-[#377DFF] text-lg font-semibold ml-1 '}
-                    >
-                        Back
-                    </span>
-                </div>
-
-                <p className={'text-white text-lg font-semibold mr-2'}>
-                    {currUser.name} {' ' + currUser.surname}
-                </p>
-                <span className={'text-white text-lg'}>
-                    asked for permission
-                </span>
-            </div>
-            <div
-                className={
-                    'bg-white px-20 py-5 rounded-xl shadow-md w-max flex flex-col items-center mt-4'
-                }
-            >
-                <h1 className={'text-2xl font-medium mb-4'}>Check Sickness</h1>
+                <h1 className={'text-2xl font-medium mb-4'}>
+                    {' '}
+                    {location.pathname.split('/').at(-1)}№ Disease Bulleten
+                </h1>
                 <div className={'flex flex-col'}>
                     <div className={'flex'}>
                         <div className={'flex flex-col w-[250px] mr-10'}>
@@ -206,56 +186,11 @@ const IllnessCheck = () => {
                             </div>
                         </div>
                     </div>
+                    <Button label={'Update'} primary onClick={update} />
                 </div>
-            </div>
-            <div
-                className={
-                    'py-3 px-5 bg-primary w-[700px] flex justify-center items-center rounded-md  mt-4 drop-shadow-md'
-                }
-            >
-                <button
-                    onClick={() =>
-                        notificationStatusChanger({
-                            status: 2,
-                            currUser,
-                            data,
-                            updateFnc: updateIllness,
-                            route: 'illness',
-                            notificationType: 2,
-                            notifications,
-                            navigate,
-                            dispatch,
-                        })
-                    }
-                    className={
-                        'py-2 px-5 bg-green-500 mr-4 text-white font-semibold rounded-md'
-                    }
-                >
-                    Confirm
-                </button>
-                <button
-                    onClick={() =>
-                        notificationStatusChanger({
-                            status: 3,
-                            currUser,
-                            data,
-                            updateFnc: updateIllness,
-                            route: 'illness',
-                            notificationType: 2,
-                            notifications,
-                            navigate,
-                            dispatch,
-                        })
-                    }
-                    className={
-                        'py-2 px-5 bg-red-600  text-white font-semibold rounded-md '
-                    }
-                >
-                    Reject
-                </button>
             </div>
         </>
     )
 }
 
-export default IllnessCheck
+export default IllnessEdit

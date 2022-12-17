@@ -20,3 +20,6 @@ export const addVacation = async (data) => {
 export const updateVacation = async (data) => {
     return await $api.post(`${PREFIX}/update`, data)
 }
+export const deleteVacation = async (id) => {
+    return await $api.post(PREFIX + '/delete', { id })
+}

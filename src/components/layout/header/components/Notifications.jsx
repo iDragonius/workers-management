@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Dropdown from '../../../ui/dropdown/Dropdown'
 import cn from 'classnames'
-import { getUserNotifications } from '../../../../http/api/notification'
+import { getAllNotifications, getUserNotifications } from '../../../../http/api/notification'
 import { Link } from 'react-router-dom'
 import { notificationTypes } from '../../../../config/NotificationTypes.js'
 import { useDispatch } from 'react-redux'
@@ -15,7 +15,7 @@ const Notifications = ({ icon }) => {
     }
     const dispatch = useDispatch()
     useEffect(() => {
-        getUserNotifications(+localStorage.getItem('id')).then((res) => {
+        getAllNotifications().then((res) => {
             setNotifications(res.data)
             dispatch(setData(res.data))
         })

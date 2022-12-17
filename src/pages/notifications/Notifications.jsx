@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { getUserNotifications } from '../../http/api/notification.js'
+import { getAllNotifications, getUserNotifications } from '../../http/api/notification.js'
 import { Link } from 'react-router-dom'
 import { notificationTypes } from '../../config/index.js'
 
 const Notifications = () => {
     const [notifications, setNotifications] = useState([])
     useEffect(() => {
-        getUserNotifications(+localStorage.getItem('id')).then((res) => {
+        getAllNotifications().then((res) => {
             setNotifications(res.data)
         })
     }, [])

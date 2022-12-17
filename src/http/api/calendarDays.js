@@ -16,3 +16,6 @@ export const addNonWorkingDay = async (data) => {
 export const updateNonWorkingDay = async (data) => {
     return await $api.post(`${PREFIX}/update`, data)
 }
+export const deleteNonWorkingDay = async (id) => {
+    return await $api.post(PREFIX + '/delete', { id })
+}

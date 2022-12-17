@@ -1,6 +1,6 @@
 export const notificationTypes = [
     {
-        name: 'Recruitment',
+        name: 'staff',
         value: 1,
     },
     {
@@ -12,7 +12,7 @@ export const notificationTypes = [
         value: 3,
     },
     {
-        name: 'Vacation',
+        name: 'vacation',
         value: 4,
     },
 ]

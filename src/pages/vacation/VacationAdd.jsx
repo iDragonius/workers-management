@@ -6,21 +6,26 @@ import { permissionTypes } from '../../config/index.js'
 import Button from '../../components/ui/buttons/button/Button.jsx'
 import { addVacation } from '../../http/api/vacation.js'
 import { vacationTypes } from '../../config/vacationTypes.js'
+import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 const VacationAdd = () => {
     const user = useSelector(userData)
-
+    const navigate = useNavigate()
     const [data, setData] = useState({
         startDate: '',
         endDate: '',
         count: '',
         vacationType: 1,
-        note:''
+        note: '',
     })
     const add = async () => {
         await addVacation({
             ...data,
             employeeId: user.employeeId,
+        }).then(() => {
+            toast.success('Vacation added successfully!')
+            navigate('/vacation/list')
         })
     }
     const changeData = (e) => {

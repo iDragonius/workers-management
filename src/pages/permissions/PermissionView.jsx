@@ -1,45 +1,34 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
+import { userData } from '../../store/slices/authSlice.js'
+import { useLocation } from 'react-router-dom'
 import { getPermission, updatePermission } from '../../http/api/permissions.js'
+import Back from '../../components/ui/Back.jsx'
 import { permissionTypes } from '../../config/index.js'
-import { notificationsData } from '../../store/slices/notificationSlice.js'
-import { useLocation, useNavigate } from 'react-router-dom'
-import { getEmployee } from '../../http/api/employee.js'
+import Button from '../../components/ui/buttons/button/Button.jsx'
 
-import { IoIosReturnLeft } from 'react-icons/io'
-import notificationStatusChanger from '../../features/notificationStatusChanger.js'
-const PermissionsCheck = () => {
-    const [currUser, setCurrUser] = useState({})
-    const notifications = useSelector(notificationsData)
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
+const PermissionView = () => {
     const [data, setData] = useState({
         startDate: '',
         endDate: '',
         count: '',
         permissionType: 1,
-        employeeId: 0,
-        id: 0,
+        employeeId: '',
+        id: '',
     })
     const location = useLocation()
     useEffect(() => {
-        getPermission(location.pathname.split('/').at(-1)).then(
-            (permission) => {
-                setData({
-                    startDate: permission.data.startDate.slice(0, 10),
-                    endDate: permission.data.endDate.slice(0, 10),
-                    count: permission.data.count,
-                    permissionType: +permission.data.permissionType,
-                    id: permission.data.id,
-                    employeeId: permission.data.employeeId,
-                })
-
-                getEmployee(permission.data.employeeId).then((user) => {
-                    setCurrUser(user.data)
-                })
-            }
-        )
-    }, [location.pathname.split('/').at(-1)])
+        getPermission(location.pathname.split('/').at(-1)).then((res) => {
+            setData({
+                startDate: res.data.startDate.slice(0, 10),
+                endDate: res.data.endDate.slice(0, 10),
+                permissionType: res.data.permissionType,
+                count: res.data.count,
+                employeeId: res.data.employeeId,
+                id: res.data.id,
+            })
+        })
+    }, [])
 
     const changeData = (e) => {
         setData({ ...data, [e.target.name]: e.target.value })
@@ -47,39 +36,14 @@ const PermissionsCheck = () => {
 
     return (
         <>
+            <Back />
             <div
                 className={
-                    'py-3 px-5 bg-primary w-max flex items-center rounded-md  mb-4 drop-shadow-md'
-                }
-            >
-                <div
-                    className={
-                        ' py-2 px-3 w-max bg-white flex items-center rounded-md shadow-md cursor-pointer mr-4 '
-                    }
-                    onClick={() => navigate(-1)}
-                >
-                    <IoIosReturnLeft size={32} color={'#377DFF'} />
-                    <span
-                        className={'text-[#377DFF] text-lg font-semibold ml-1 '}
-                    >
-                        Back
-                    </span>
-                </div>
-
-                <p className={'text-white text-lg font-semibold mr-2'}>
-                    {currUser.name} {' ' + currUser.surname}
-                </p>
-                <span className={'text-white text-lg'}>
-                    asked for permission
-                </span>
-            </div>
-            <div
-                className={
-                    'bg-white px-20 py-5 rounded-xl shadow-md w-max flex flex-col items-center'
+                    ' mt-2 bg-white px-20 py-5 rounded-xl shadow-md w-max flex flex-col items-center'
                 }
             >
                 <h1 className={'text-2xl font-medium mb-4'}>
-                    Check Permission
+                    {location.pathname.split('/').at(-1)}№ Permission
                 </h1>
                 <div className={'flex flex-col w-[250px]'}>
                     <div className={'flex flex-col mb-5 relative'}>
@@ -91,6 +55,7 @@ const PermissionsCheck = () => {
                             Start
                         </label>
                         <input
+                            readOnly={true}
                             type="date"
                             value={data.startDate}
                             name={'startDate'}
@@ -109,6 +74,7 @@ const PermissionsCheck = () => {
                             End
                         </label>
                         <input
+                            readOnly={true}
                             value={data.endDate}
                             name={'endDate'}
                             onChange={changeData}
@@ -127,6 +93,7 @@ const PermissionsCheck = () => {
                             Type
                         </label>
                         <select
+                            disabled={true}
                             value={data.permissionType}
                             name={'permissionType'}
                             onChange={changeData}
@@ -153,6 +120,7 @@ const PermissionsCheck = () => {
                             Count
                         </label>
                         <input
+                            readOnly={true}
                             value={data.count}
                             name={'count'}
                             onChange={changeData}
@@ -165,54 +133,8 @@ const PermissionsCheck = () => {
                     </div>
                 </div>
             </div>
-            <div
-                className={
-                    'py-3 px-5 bg-primary w-[410px] flex justify-center items-center rounded-md  mt-4 drop-shadow-md'
-                }
-            >
-                <button
-                    onClick={() =>
-                        notificationStatusChanger({
-                            status: 2,
-                            currUser,
-                            data,
-                            updateFnc: updatePermission,
-                            route: 'permissions',
-                            notificationType: 3,
-                            notifications,
-                            navigate,
-                            dispatch,
-                        })
-                    }
-                    className={
-                        'py-2 px-5 bg-green-500 mr-4 text-white font-semibold rounded-md'
-                    }
-                >
-                    Confirm
-                </button>
-                <button
-                    onClick={() =>
-                        notificationStatusChanger({
-                            status: 3,
-                            currUser,
-                            data,
-                            updateFnc: updatePermission,
-                            route: 'permissions',
-                            notificationType: 3,
-                            notifications,
-                            navigate,
-                            dispatch,
-                        })
-                    }
-                    className={
-                        'py-2 px-5 bg-red-600  text-white font-semibold rounded-md '
-                    }
-                >
-                    Reject
-                </button>
-            </div>
         </>
     )
 }
 
-export default PermissionsCheck
+export default PermissionView

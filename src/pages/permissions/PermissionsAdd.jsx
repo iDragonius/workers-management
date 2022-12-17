@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 import Button from '../../components/ui/buttons/button/Button.jsx'
 import { useSelector } from 'react-redux'
 import { userData } from '../../store/slices/authSlice.js'
-import { addIllness } from '../../http/api/illness.js'
 import { dayTypes, permissionTypes } from '../../config/index.js'
 import { addPermission } from '../../http/api/permissions.js'
+import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 const PermissionsAdd = () => {
     const user = useSelector(userData)
-
+    const navigate = useNavigate()
     const [data, setData] = useState({
         startDate: '',
         endDate: '',
@@ -20,6 +21,9 @@ const PermissionsAdd = () => {
             ...data,
             permissionType: +data.permissionType,
             employeeId: user.employeeId,
+        }).then(() => {
+            toast.success(`Permission successfully added!`)
+            navigate('/permissions/list')
         })
     }
     const changeData = (e) => {
@@ -78,7 +82,7 @@ const PermissionsAdd = () => {
                         Type
                     </label>
                     <select
-                        value={data.permissionsType}
+                        value={data.permissionType}
                         name={'permissionType'}
                         onChange={changeData}
                         className={

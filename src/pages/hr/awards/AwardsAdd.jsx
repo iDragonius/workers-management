@@ -1,6 +1,8 @@
-import React, {  useState } from 'react'
+import React, { useState } from 'react'
 import Button from '../../../components/ui/buttons/button/Button.jsx'
 import { addAward } from '../../../http/api/awards.js'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 const AwardsAdd = () => {
     const [data, setData] = useState({
@@ -8,9 +10,13 @@ const AwardsAdd = () => {
         amount: '',
     })
 
+    const navigate = useNavigate()
 
     const add = async () => {
-        await addAward({ ...data, amount: +data.amount })
+        await addAward({ ...data, amount: +data.amount }).then(() => {
+            toast.success('Award successfully added!')
+            navigate(-1)
+        })
     }
     const changeData = (e) => {
         setData({ ...data, [e.target.name]: e.target.value })
@@ -59,8 +65,12 @@ const AwardsAdd = () => {
                         'w-full py-3 px-3 border  hover:border-primary border-b-4 border-b-primary shadow-md rounded-md outline-none'
                     }
                 />
-                <Button label={'Add'} primary onClick={add}  className={'mt-5'}/>
-
+                <Button
+                    label={'Add'}
+                    primary
+                    onClick={add}
+                    className={'mt-5'}
+                />
             </div>
         </div>
     )

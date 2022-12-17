@@ -1,84 +1,60 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { IoIosReturnLeft } from 'react-icons/io'
-import { vacationTypes } from '../../config/vacationTypes.js'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { userData } from '../../store/slices/authSlice.js'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { getVacation, updateVacation } from '../../http/api/vacation.js'
-import { setNotificationStatus } from '../../http/api/notification.js'
-import { notificationsData } from '../../store/slices/notificationSlice.js'
-import { getEmployee } from '../../http/api/employee.js'
-import notificationStatusChanger from '../../features/notificationStatusChanger.js'
-import { updatePermission } from '../../http/api/permissions.js'
-const VacationCheck = () => {
-    const navigate = useNavigate()
-    const [currUser, setCurrUser] = useState({})
-    const dispatch = useDispatch()
+import { toast } from 'react-toastify'
+import Back from '../../components/ui/Back.jsx'
+import { vacationTypes } from '../../config/vacationTypes.js'
+import Button from '../../components/ui/buttons/button/Button.jsx'
+
+const VacationView = () => {
     const user = useSelector(userData)
-    const notifications = useSelector(notificationsData)
+    const location = useLocation()
+    const navigate = useNavigate()
     const [data, setData] = useState({
         startDate: '',
         endDate: '',
+        count: '',
         vacationType: 1,
         note: '',
+        employeeId: '',
+        id: '',
     })
 
     useEffect(() => {
-        getVacation(location.pathname.split('/').at(-1)).then((vacation) => {
+        getVacation(location.pathname.split('/').at(-1)).then((res) => {
             setData({
-                startDate: vacation.data.startDate.slice(0, 10),
-                endDate: vacation.data.endDate.slice(0, 10),
-                vacationType: +vacation.data.vacationType,
-                note: vacation.data.note,
-                id: vacation.data.id,
-                employeeId: vacation.data.employeeId,
-            })
-
-            getEmployee(vacation.data.employeeId).then((user) => {
-                setCurrUser(user.data)
+                startDate: res.data.startDate.slice(0, 10),
+                endDate: res.data.endDate.slice(0, 10),
+                count: res.data.count,
+                vacationType: +res.data.vacationType,
+                note: res.data.note,
+                employeeId: res.data.employeeId,
+                id: res.data.id,
             })
         })
-    }, [location.pathname.split('/').at(-1)])
-
+    }, [])
+    const add = async () => {
+        await updateVacation(data).then(() => {
+            toast.success('Vacation updated successfully!')
+            navigate('/vacation/list')
+        })
+    }
     const changeData = (e) => {
         setData({ ...data, [e.target.name]: e.target.value })
     }
     return (
         <>
-            <div
-                className={
-                    'py-3 px-5 bg-primary w-max flex items-center rounded-md  mb-4 drop-shadow-md'
-                }
-            >
-                <div
-                    className={
-                        ' py-2 px-3 w-max bg-white flex items-center rounded-md shadow-md cursor-pointer mr-4 '
-                    }
-                    onClick={() => navigate(-1)}
-                >
-                    <IoIosReturnLeft size={32} color={'#377DFF'} />
-                    <span
-                        className={'text-[#377DFF] text-lg font-semibold ml-1 '}
-                    >
-                        Back
-                    </span>
-                </div>
-
-                <p className={'text-white text-lg font-semibold mr-2'}>
-                    {currUser.name} {' ' + currUser.surname}
-                </p>
-                <span className={'text-white text-lg'}>
-                    asked for permission
-                </span>
-            </div>
+            <Back />
 
             <div
                 className={
-                    'bg-white px-20 py-5 rounded-xl shadow-md w-max flex flex-col items-center'
+                    'mt-2 bg-white px-20 py-5 rounded-xl shadow-md w-max flex flex-col items-center'
                 }
             >
                 <h1 className={'text-2xl font-medium mb-4'}>
-                    Request Vacation
+                    {location.pathname.split('/').at(-1)}№ Vacation
                 </h1>
                 <div className={'flex flex-col w-[250px]'}>
                     <div className={'flex flex-col mb-5 relative'}>
@@ -90,6 +66,7 @@ const VacationCheck = () => {
                             Start
                         </label>
                         <input
+                            readOnly={true}
                             type="date"
                             value={data.startDate}
                             name={'startDate'}
@@ -108,6 +85,7 @@ const VacationCheck = () => {
                             End
                         </label>
                         <input
+                            readOnly={true}
                             value={data.endDate}
                             name={'endDate'}
                             onChange={changeData}
@@ -126,6 +104,7 @@ const VacationCheck = () => {
                             Type
                         </label>
                         <select
+                            disabled={true}
                             value={data.vacationType}
                             name={'vacationType'}
                             onChange={changeData}
@@ -152,6 +131,7 @@ const VacationCheck = () => {
                             Note
                         </label>
                         <textarea
+                            readOnly={true}
                             value={data.note}
                             name={'note'}
                             onChange={changeData}
@@ -162,56 +142,10 @@ const VacationCheck = () => {
                             }
                         />
                     </div>
-                    <div
-                        className={
-                            'py-3 px-5 bg-primary  flex justify-center items-center rounded-md  mt-4 drop-shadow-md'
-                        }
-                    >
-                        <button
-                            onClick={() =>
-                                notificationStatusChanger({
-                                    status: 2,
-                                    currUser,
-                                    data,
-                                    updateFnc: updateVacation,
-                                    route: 'vacation',
-                                    notifications,
-                                    navigate,
-                                    dispatch,
-                                    notificationType: 4,
-                                })
-                            }
-                            className={
-                                'py-2 px-5 bg-green-500 mr-4 text-white font-semibold rounded-md'
-                            }
-                        >
-                            Confirm
-                        </button>
-                        <button
-                            onClick={() =>
-                                notificationStatusChanger({
-                                    status: 3,
-                                    currUser,
-                                    data,
-                                    updateFnc: updateVacation,
-                                    route: 'vacation',
-                                    notifications,
-                                    navigate,
-                                    dispatch,
-                                    notificationType: 4,
-                                })
-                            }
-                            className={
-                                'py-2 px-5 bg-red-600  text-white font-semibold rounded-md '
-                            }
-                        >
-                            Reject
-                        </button>
-                    </div>
                 </div>
             </div>
         </>
     )
 }
 
-export default VacationCheck
+export default VacationView

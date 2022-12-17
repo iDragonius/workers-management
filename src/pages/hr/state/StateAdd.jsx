@@ -1,30 +1,33 @@
 import React, { useEffect, useState } from 'react'
 import { addState, getAllStates } from '../../../http/api/states.js'
 import Button from '../../../components/ui/buttons/button/Button.jsx'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 const StateAdd = () => {
     const [states, setStates] = useState([])
     const [data, setData] = useState({
         name: '',
         parentId: 1,
-
     })
+    const navigate = useNavigate()
 
-    useEffect(()=>{
-        getAllStates()
-            .then(allStates=>{
-                const temp =[]
-                allStates.data.map(state=>{
-                    if(state.parentId===0){
-                        temp.push(state)
-                    }
-                })
-                setStates(temp)
+    useEffect(() => {
+        getAllStates().then((allStates) => {
+            const temp = []
+            allStates.data.map((state) => {
+                if (state.parentId === 0) {
+                    temp.push(state)
+                }
             })
-
-    },[])
+            setStates(temp)
+        })
+    }, [])
     const add = async () => {
-        await addState(data )
+        await addState(data).then(() => {
+            toast.success('State successfully added!')
+            navigate(-1)
+        })
     }
     const changeData = (e) => {
         setData({ ...data, [e.target.name]: e.target.value })

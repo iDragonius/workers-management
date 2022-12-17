@@ -6,6 +6,7 @@ import { setCurrentUserData } from '../../store/slices/adminSlice'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { getAllEmployees } from '../../http/api/employee.js'
+import statusChecker from '../../features/statusChecker.js'
 
 const StaffList = () => {
     const navigate = useNavigate()
@@ -16,39 +17,8 @@ const StaffList = () => {
         getAllEmployees().then((res) => {
             const temp = []
             res.data.map((employee) => {
-                let status =1;
-                if(employee.status===1){
-                    status=  h(
-                        'p',
-                        {
-                            className:
-                                'text-orange-400 font-semibold',
 
-                        },
-                        'Pending'
-                    )
-                } else if(employee.status===2){
-                    status=  h(
-                        'p',
-                        {
-                            className:
-                                'text-green-600 font-semibold',
-
-                        },
-                        'Accepted'
-                    )
-                } else {
-                    status=  h(
-                        'p',
-                        {
-                            className:
-                                'text-red-600 font-semibold',
-
-                        },
-                        'Rejected'
-                    )
-                }
-                temp.push([employee.id, employee.name, employee.surname, status])
+                temp.push([employee.id, employee.name, employee.surname, statusChecker(employee)])
             })
             setData(temp)
         })

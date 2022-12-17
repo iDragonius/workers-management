@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export const API_URL = 'https://k191publicadministration.azurewebsites.net/api'
+export const API_URL = 'https://k191.azurewebsites.net/api'
 const $api = axios.create({
     baseURL: API_URL,
 })

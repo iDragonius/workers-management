@@ -2,14 +2,21 @@ import React, { useState } from 'react'
 import { dayTypes } from '../../../config/index.js'
 import Button from '../../../components/ui/buttons/button/Button.jsx'
 import { addNonWorkingDay } from '../../../http/api/calendarDays.js'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 const NonWorkingDaysAdd = () => {
     const [data, setData] = useState({
         date: '',
         dayType: 1,
     })
+    const navigate = useNavigate()
+
     const add = async () => {
-        await addNonWorkingDay(data)
+        await addNonWorkingDay({ ...data, dayType: +data.dayType }).then(() => {
+            toast.success('Non Working day successfully added!')
+            navigate(-1)
+        })
     }
     const changeData = (e) => {
         setData({ ...data, [e.target.name]: e.target.value })

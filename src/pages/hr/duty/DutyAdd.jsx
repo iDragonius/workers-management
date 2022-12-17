@@ -3,25 +3,29 @@ import React, { useEffect, useState } from 'react'
 import Button from '../../../components/ui/buttons/button/Button.jsx'
 import { addDuty } from '../../../http/api/duty.js'
 import { getAllStates } from '../../../http/api/states.js'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 const DutyAdd = () => {
     const [states, setStates] = useState([])
+    const navigate = useNavigate()
     const [data, setData] = useState({
         name: '',
         salary: '',
         stateId: 1,
     })
 
-    useEffect(()=>{
-        getAllStates()
-            .then(allStates=>{
-                console.log(allStates.data)
-                setStates(allStates.data)
-            })
-
-    },[])
+    useEffect(() => {
+        getAllStates().then((allStates) => {
+            console.log(allStates.data)
+            setStates(allStates.data)
+        })
+    }, [])
     const add = async () => {
-        await addDuty({ ...data, salary: +data.salary })
+        await addDuty({ ...data, salary: +data.salary }).then(() => {
+            toast.success('Duty successfully added!')
+            navigate(-1)
+        })
     }
     const changeData = (e) => {
         setData({ ...data, [e.target.name]: e.target.value })
