@@ -84,184 +84,234 @@ const Navigation = () => {
                             element={<ChangePassword />}
                         />
                     </Route>
-                    <Route path={'notifications'} element={<Notifications />} />
-                    <Route element={<RoleWrapper routeRole={'3'} />}>
-                        <Route element={<RoleWrapper routeRole={'2'} />}>
-                            <Route path={'hr/'} element={<HR />}>
+
+                    <Route element={<RoleWrapper routeRole={'4'} />}>
+                        <Route element={<RoleWrapper routeRole={'3'} />}>
+                            <Route element={<RoleWrapper routeRole={'2'} />}>
                                 <Route
-                                    path={'non-working-days'}
-                                    element={<NonWorkingDays />}
+                                    path={'notifications'}
+                                    element={<Notifications />}
+                                />
+
+                                <Route path={'hr/'} element={<HR />}>
+                                    <Route
+                                        path={'non-working-days'}
+                                        element={<NonWorkingDays />}
+                                    >
+                                        <Route
+                                            path={'list'}
+                                            element={<NonWorkingDaysList />}
+                                        />
+                                        <Route
+                                            path={'add'}
+                                            element={<NonWorkingDaysAdd />}
+                                        />
+
+                                        <Route
+                                            path={'change/:id'}
+                                            element={<NonWorkingDaysChange />}
+                                        />
+                                    </Route>
+
+                                    <Route path={'duty/'} element={<Duty />}>
+                                        <Route
+                                            path={'list'}
+                                            element={<DutyList />}
+                                        />
+                                        <Route
+                                            path={'add'}
+                                            element={<DutyAdd />}
+                                        />
+
+                                        <Route
+                                            path={'change/:id'}
+                                            element={<DutyChange />}
+                                        />
+                                    </Route>
+                                    <Route path={'state/'} element={<State />}>
+                                        <Route
+                                            path={'list'}
+                                            element={<StateList />}
+                                        />
+                                        <Route
+                                            path={'add'}
+                                            element={<StateAdd />}
+                                        />
+
+                                        <Route
+                                            path={'change/:id'}
+                                            element={<StateChange />}
+                                        />
+                                    </Route>
+                                    <Route
+                                        path={'awards/'}
+                                        element={<Awards />}
+                                    >
+                                        <Route
+                                            path={'list'}
+                                            element={<AwardsList />}
+                                        />
+                                        <Route
+                                            path={'add'}
+                                            element={<AwardsAdd />}
+                                        />
+
+                                        <Route
+                                            path={'change/:id'}
+                                            element={<AwardsChange />}
+                                        />
+                                    </Route>
+                                </Route>
+                                <Route path={'staff/'} element={<Staff />}>
+                                    <Route
+                                        path={'add'}
+                                        element={<StaffAdding />}
+                                    />
+                                    <Route
+                                        path={'list'}
+                                        element={<StaffList />}
+                                    />
+                                    <Route
+                                        path={'change/:id'}
+                                        element={<StaffChange />}
+                                    />
+                                    <Route
+                                        path={'check/:id'}
+                                        element={<StaffCheck />}
+                                    />
+                                </Route>
+
+                                <Route
+                                    element={<RoleWrapper routeRole={'1'} />}
                                 >
-                                    <Route
-                                        path={'list'}
-                                        element={<NonWorkingDaysList />}
-                                    />
-                                    <Route
-                                        path={'add'}
-                                        element={<NonWorkingDaysAdd />}
-                                    />
-
-                                    <Route
-                                        path={'change/:id'}
-                                        element={<NonWorkingDaysChange />}
-                                    />
-                                </Route>
-
-                                <Route path={'duty/'} element={<Duty />}>
-                                    <Route
-                                        path={'list'}
-                                        element={<DutyList />}
-                                    />
-                                    <Route path={'add'} element={<DutyAdd />} />
-
-                                    <Route
-                                        path={'change/:id'}
-                                        element={<DutyChange />}
-                                    />
-                                </Route>
-                                <Route path={'state/'} element={<State />}>
-                                    <Route
-                                        path={'list'}
-                                        element={<StateList />}
-                                    />
-                                    <Route
-                                        path={'add'}
-                                        element={<StateAdd />}
-                                    />
-
-                                    <Route
-                                        path={'change/:id'}
-                                        element={<StateChange />}
-                                    />
-                                </Route>
-                                <Route path={'awards/'} element={<Awards />}>
-                                    <Route
-                                        path={'list'}
-                                        element={<AwardsList />}
-                                    />
-                                    <Route
-                                        path={'add'}
-                                        element={<AwardsAdd />}
-                                    />
-
-                                    <Route
-                                        path={'change/:id'}
-                                        element={<AwardsChange />}
-                                    />
+                                    <Route path={'admin/'} element={<Admin />}>
+                                        <Route
+                                            path={'users-list'}
+                                            element={<UsersList />}
+                                        />
+                                        <Route
+                                            path={'users-list/:id'}
+                                            element={<User />}
+                                        />
+                                        <Route
+                                            path={'token'}
+                                            element={<Token />}
+                                        />
+                                    </Route>
                                 </Route>
                             </Route>
-                            <Route path={'staff/'} element={<Staff />}>
-                                <Route path={'add'} element={<StaffAdding />} />
-                                <Route path={'list'} element={<StaffList />} />
-                                <Route
-                                    path={'change/:id'}
-                                    element={<StaffChange />}
-                                />
-                                <Route
-                                    path={'check/:id'}
-                                    element={<StaffCheck />}
-                                />
-                            </Route>
-
-                            <Route element={<RoleWrapper routeRole={'1'} />}>
-                                <Route path={'admin/'} element={<Admin />}>
-                                    <Route
-                                        path={'users-list'}
-                                        element={<UsersList />}
-                                    />
-                                    <Route
-                                        path={'users-list/:id'}
-                                        element={<User />}
-                                    />
-                                    <Route path={'token'} element={<Token />} />
-                                </Route>
-                            </Route>
+                            <Route path={'tabel'} element={<Tabel />} />
+                            <Route path={'salary'} element={<Salary />} />
                         </Route>
-                        <Route path={'tabel'} element={<Tabel />} />
-                        <Route path={'salary'} element={<Salary />} />
-                    </Route>
 
-                    <Route path={'vacation'} element={<Vacation />}>
-                        <Route path={'list'} element={<VacationList />} />
-                        <Route path={'view/:id'} element={<VacationView />} />
-                        <Route path={'edit/:id'} element={<VacationEdit />} />
-                        <Route element={<RoleWrapper routeRole={'2'} />}>
+                        <Route path={'vacation'} element={<Vacation />}>
+                            <Route path={'list'} element={<VacationList />} />
                             <Route
-                                path={'admin-list'}
-                                element={<AdminList path={'vacation'} />}
-                            />
-                            <Route
-                                path={'list/:id'}
-                                element={<VacationListUser />}
-                            />
-                            <Route
-                                path={'check/:id'}
-                                element={<VacationCheck />}
-                            />
-                        </Route>
-                        <Route path={'add'} element={<VacationAdd />} />
-                    </Route>
-                    <Route path={'permissions/'} element={<Permissions />}>
-                        <Route path={'list'} element={<PermissionsList />} />
-                        <Route path={'view/:id'} element={<PermissionView />} />
-                        <Route
-                            path={'edit/:id'}
-                            element={<PermissionsEdit />}
-                        />
-                        <Route element={<RoleWrapper routeRole={'2'} />}>
-                            <Route
-                                path={'admin-list'}
-                                element={<AdminList path={'permissions'} />}
-                            />
-                            <Route
-                                path={'list/:id'}
-                                element={<PermissionsListUser />}
-                            />
-                            <Route
-                                path={'check/:id'}
-                                element={<PermissionsCheck />}
-                            />
-                        </Route>
-                        <Route path={'add'} element={<PermissionsAdd />} />
-                    </Route>
-
-                    <Route path={'working-hours/'} element={<WorkingHours />}>
-                        <Route path={'list'} element={<WorkingHoursList />} />
-                        <Route element={<RoleWrapper routeRole={'2'} />}>
-                            <Route
-                                path={'admin-list'}
-                                element={<AdminList path={'working-hours'} />}
-                            />
-                            <Route
-                                path={'list/:id'}
-                                element={<WorkingHoursListUser />}
+                                path={'view/:id'}
+                                element={<VacationView />}
                             />
                             <Route
                                 path={'edit/:id'}
-                                element={<WorkingHoursEdit />}
+                                element={<VacationEdit />}
                             />
+                            <Route element={<RoleWrapper routeRole={'2'} />}>
+                                <Route
+                                    path={'admin-list'}
+                                    element={<AdminList path={'vacation'} />}
+                                />
+                                <Route
+                                    path={'list/:id'}
+                                    element={<VacationListUser />}
+                                />
+                                <Route
+                                    path={'check/:id'}
+                                    element={<VacationCheck />}
+                                />
+                            </Route>
+                            <Route path={'add'} element={<VacationAdd />} />
                         </Route>
-                        <Route path={'add'} element={<WorkingHoursAdd />} />
-                    </Route>
-                    <Route path={'illness/'} element={<Illness />}>
-                        <Route path={'list'} element={<IllnessList />} />
-                        <Route path={'view/:id'} element={<IllnessView />} />
-                        <Route path={'edit/:id'} element={<IllnessEdit />} />
-                        <Route element={<RoleWrapper routeRole={'2'} />}>
+                        <Route path={'permissions/'} element={<Permissions />}>
                             <Route
-                                path={'admin-list'}
-                                element={<AdminList path={'illness'} />}
+                                path={'list'}
+                                element={<PermissionsList />}
                             />
                             <Route
-                                path={'list/:id'}
-                                element={<IllnessListUser />}
+                                path={'view/:id'}
+                                element={<PermissionView />}
                             />
                             <Route
-                                path={'check/:id'}
-                                element={<IllnessCheck />}
+                                path={'edit/:id'}
+                                element={<PermissionsEdit />}
                             />
+                            <Route element={<RoleWrapper routeRole={'2'} />}>
+                                <Route
+                                    path={'admin-list'}
+                                    element={<AdminList path={'permissions'} />}
+                                />
+                                <Route
+                                    path={'list/:id'}
+                                    element={<PermissionsListUser />}
+                                />
+                                <Route
+                                    path={'check/:id'}
+                                    element={<PermissionsCheck />}
+                                />
+                            </Route>
+                            <Route path={'add'} element={<PermissionsAdd />} />
                         </Route>
-                        <Route path={'add'} element={<IllnessAdd />} />
+
+                        <Route
+                            path={'working-hours/'}
+                            element={<WorkingHours />}
+                        >
+                            <Route
+                                path={'list'}
+                                element={<WorkingHoursList />}
+                            />
+                            <Route element={<RoleWrapper routeRole={'2'} />}>
+                                <Route
+                                    path={'admin-list'}
+                                    element={
+                                        <AdminList path={'working-hours'} />
+                                    }
+                                />
+                                <Route
+                                    path={'list/:id'}
+                                    element={<WorkingHoursListUser />}
+                                />
+                                <Route
+                                    path={'edit/:id'}
+                                    element={<WorkingHoursEdit />}
+                                />
+                            </Route>
+                            <Route path={'add'} element={<WorkingHoursAdd />} />
+                        </Route>
+                        <Route path={'illness/'} element={<Illness />}>
+                            <Route path={'list'} element={<IllnessList />} />
+                            <Route
+                                path={'view/:id'}
+                                element={<IllnessView />}
+                            />
+                            <Route
+                                path={'edit/:id'}
+                                element={<IllnessEdit />}
+                            />
+                            <Route element={<RoleWrapper routeRole={'2'} />}>
+                                <Route
+                                    path={'admin-list'}
+                                    element={<AdminList path={'illness'} />}
+                                />
+                                <Route
+                                    path={'list/:id'}
+                                    element={<IllnessListUser />}
+                                />
+                                <Route
+                                    path={'check/:id'}
+                                    element={<IllnessCheck />}
+                                />
+                            </Route>
+                            <Route path={'add'} element={<IllnessAdd />} />
+                        </Route>
                     </Route>
                 </Route>
             </Route>

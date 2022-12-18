@@ -11,11 +11,18 @@ const Token = () => {
     const [token, setToken] = useState('')
     const [generated, setGenerated] = useState(false)
     const [selectedRole, setSelectedRole] = useState(0)
-
+    const [allRoles, setAllRoles] = useState([])
     useEffect(() => {
-        roles.filter((data) => {
-            data.label = data.name
+        const temp = []
+        roles.map((data) => {
+            if (data.name !== 'Pending') {
+                temp.push({
+                    label: data.name,
+                    value: data.value,
+                })
+            }
         })
+        setAllRoles(temp)
         getRoles()
     }, [])
 
@@ -23,7 +30,6 @@ const Token = () => {
         await $api
             .get(`/UserKeys/generatekey/?roleId=${selectedRole}`)
             .then((res) => {
-                console.log(res)
                 setToken(res.data.secretKey)
                 setGenerated(true)
             })
@@ -46,7 +52,7 @@ const Token = () => {
             <h1 className={'text-xl mt-6 mb-3'}>Generate Sign Up Token</h1>
             <div className={'flex'}>
                 <Select
-                    options={roles}
+                    options={allRoles}
                     styles={customStyles}
                     onChange={(data) => setSelectedRole(data.value)}
                     placeholder={'Select Role...'}

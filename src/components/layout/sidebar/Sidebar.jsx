@@ -56,88 +56,113 @@ const Sidebar = () => {
                         whiteIcon={<MdDashboard size={24} color={'#fff'} />}
                         icon={<MdDashboard size={24} color={'#000'} />}
                     />
-                    <RoleCheckerUI routeRole={rolesEnums.HR}>
+                    <RoleCheckerUI routeRole={rolesEnums.USER}>
+                        <RoleCheckerUI routeRole={rolesEnums.HR}>
+                            <Navigation
+                                name={'Workers'}
+                                path={'/staff/list'}
+                                active={active}
+                                setActive={setActive}
+                                whiteIcon={
+                                    <MdPeopleAlt size={24} color={'#fff'} />
+                                }
+                                icon={<MdPeopleAlt size={24} color={'#000'} />}
+                            />
+
+                            <Navigation
+                                name={'HR'}
+                                path={'/hr/non-working-days/list'}
+                                active={active}
+                                setActive={setActive}
+                                icon={
+                                    <SiGoogletagmanager
+                                        size={24}
+                                        color={'#000'}
+                                    />
+                                }
+                                whiteIcon={
+                                    <SiGoogletagmanager
+                                        size={24}
+                                        color={'#fff'}
+                                    />
+                                }
+                            />
+                        </RoleCheckerUI>
                         <Navigation
-                            name={'Workers'}
-                            path={'/staff/list'}
+                            name={'Illness'}
+                            path={'/illness/list'}
                             active={active}
                             setActive={setActive}
-                            whiteIcon={<MdPeopleAlt size={24} color={'#fff'} />}
-                            icon={<MdPeopleAlt size={24} color={'#000'} />}
+                            icon={<MdOutlineSick size={24} color={'#000'} />}
+                            whiteIcon={
+                                <MdOutlineSick size={24} color={'#fff'} />
+                            }
                         />
-
                         <Navigation
-                            name={'HR'}
-                            path={'/hr/non-working-days/list'}
+                            name={'Vacation'}
+                            path={'/vacation/list'}
+                            active={active}
+                            setActive={setActive}
+                            icon={<AiFillPicture size={24} color={'#000'} />}
+                            whiteIcon={
+                                <AiFillPicture size={24} color={'#fff'} />
+                            }
+                        />
+                        <Navigation
+                            name={'Permissions'}
+                            path={'/permissions/list'}
                             active={active}
                             setActive={setActive}
                             icon={
-                                <SiGoogletagmanager size={24} color={'#000'} />
+                                <MdOutlinePermIdentity
+                                    size={24}
+                                    color={'#000'}
+                                />
                             }
                             whiteIcon={
-                                <SiGoogletagmanager size={24} color={'#fff'} />
+                                <MdOutlinePermIdentity
+                                    size={24}
+                                    color={'#fff'}
+                                />
                             }
                         />
-                    </RoleCheckerUI>
-                    <Navigation
-                        name={'Illness'}
-                        path={'/illness/list'}
-                        active={active}
-                        setActive={setActive}
-                        icon={<MdOutlineSick size={24} color={'#000'} />}
-                        whiteIcon={<MdOutlineSick size={24} color={'#fff'} />}
-                    />
-                    <Navigation
-                        name={'Vacation'}
-                        path={'/vacation/list'}
-                        active={active}
-                        setActive={setActive}
-                        icon={<AiFillPicture size={24} color={'#000'} />}
-                        whiteIcon={<AiFillPicture size={24} color={'#fff'} />}
-                    />
-                    <Navigation
-                        name={'Permissions'}
-                        path={'/permissions/list'}
-                        active={active}
-                        setActive={setActive}
-                        icon={
-                            <MdOutlinePermIdentity size={24} color={'#000'} />
-                        }
-                        whiteIcon={
-                            <MdOutlinePermIdentity size={24} color={'#fff'} />
-                        }
-                    />
-                    <Navigation
-                        name={'Working Hours'}
-                        path={'/working-hours/list'}
-                        active={active}
-                        setActive={setActive}
-                        icon={<BsHourglassSplit size={24} color={'#000'} />}
-                        whiteIcon={
-                            <BsHourglassSplit size={24} color={'#fff'} />
-                        }
-                    />
-                    <RoleCheckerUI routeRole={rolesEnums.MUHASIB}>
                         <Navigation
-                            name={'Tabel'}
-                            path={'/tabel'}
+                            name={'Working Hours'}
+                            path={'/working-hours/list'}
                             active={active}
                             setActive={setActive}
-                            icon={<CgFileDocument size={24} color={'#000'} />}
+                            icon={<BsHourglassSplit size={24} color={'#000'} />}
                             whiteIcon={
-                                <CgFileDocument size={24} color={'#fff'} />
+                                <BsHourglassSplit size={24} color={'#fff'} />
+                            }
+                        />
+                        <RoleCheckerUI routeRole={rolesEnums.MUHASIB}>
+                            <Navigation
+                                name={'Tabel'}
+                                path={'/tabel'}
+                                active={active}
+                                setActive={setActive}
+                                icon={
+                                    <CgFileDocument size={24} color={'#000'} />
+                                }
+                                whiteIcon={
+                                    <CgFileDocument size={24} color={'#fff'} />
+                                }
+                            />
+                        </RoleCheckerUI>
+                        <Navigation
+                            name={'Salary'}
+                            path={'/salary'}
+                            active={active}
+                            setActive={setActive}
+                            icon={<GiReceiveMoney size={24} color={'#000'} />}
+                            whiteIcon={
+                                <GiReceiveMoney size={24} color={'#fff'} />
                             }
                         />
                     </RoleCheckerUI>
-                    <Navigation
-                        name={'Salary'}
-                        path={'/salary'}
-                        active={active}
-                        setActive={setActive}
-                        icon={<GiReceiveMoney size={24} color={'#000'} />}
-                        whiteIcon={<GiReceiveMoney size={24} color={'#fff'} />}
-                    />
                 </div>
+
                 <Logout action={logout} />
             </div>
         </div>

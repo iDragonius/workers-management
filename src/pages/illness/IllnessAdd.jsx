@@ -145,8 +145,8 @@ const IllnessAdd = () => {
                                 value={data.payPercent}
                                 name={'payPercent'}
                                 onChange={changeData}
-                                type="text"
-                                placeholder={'20%'}
+                                type="number"
+                                placeholder={'20'}
                                 className={
                                     'w-full py-3 px-3 border  hover:border-primary border-b-4 border-b-primary shadow-md rounded-md outline-none'
                                 }

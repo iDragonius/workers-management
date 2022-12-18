@@ -12,13 +12,18 @@ const StaffList = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const [data, setData] = useState([])
-
+    const [staticData, setStaticData] = useState([])
     useEffect(() => {
         getAllEmployees().then((res) => {
             const temp = []
+            setStaticData(res.data)
             res.data.map((employee) => {
-
-                temp.push([employee.id, employee.name, employee.surname, statusChecker(employee)])
+                temp.push([
+                    employee.id,
+                    employee.name,
+                    employee.surname,
+                    statusChecker(employee),
+                ])
             })
             setData(temp)
         })
@@ -30,7 +35,6 @@ const StaffList = () => {
             sort={true}
             data={data}
             search={true}
-
             width={'max-content'}
             columns={[
                 'ID',
@@ -51,9 +55,20 @@ const StaffList = () => {
                                             employeeId: row.cells[0].data,
                                         })
                                     )
-                                    navigate(
-                                        `/staff/change/${row.cells[0].data}`
-                                    )
+                                    if (
+                                        +staticData.find(
+                                            (empl) =>
+                                                empl.id == row.cells[0].data
+                                        ).status > 1
+                                    ) {
+                                        navigate(
+                                            `/staff/change/${row.cells[0].data}`
+                                        )
+                                    } else {
+                                        navigate(
+                                            `/staff/check/${row.cells[0].data}`
+                                        )
+                                    }
                                 },
                             },
                             'Edit'

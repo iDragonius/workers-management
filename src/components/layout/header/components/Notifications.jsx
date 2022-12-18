@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import Dropdown from '../../../ui/dropdown/Dropdown'
 import cn from 'classnames'
-import { getAllNotifications, getUserNotifications } from '../../../../http/api/notification'
+import {
+    getAllNotifications,
+    getUserNotifications,
+} from '../../../../http/api/notification'
 import { Link } from 'react-router-dom'
 import { notificationTypes } from '../../../../config/NotificationTypes.js'
 import { useDispatch } from 'react-redux'
@@ -50,47 +53,43 @@ const Notifications = ({ icon }) => {
                     >
                         {notifications.length > 0 ? (
                             <>
-                                {notifications.map(
-                                    (notification) => {
-                                        return (
-                                            <>
-                                                {
-                                                    notification.status ===1 && (
-                                                        <div
-                                                            className={
-                                                                ' py-2 px-2 border mb-3 border-b-4 border-b-primary shadow-md rounded-md w-full'
-                                                            }
-                                                        >
-                                                            <p>{notification.title}</p>
-                                                            <Link
-                                                                to={`/${
-                                                                    notificationTypes.find(
-                                                                        (ntf) =>
-                                                                            ntf.value ===
-                                                                            notification.notificationType
-                                                                    ).name
-                                                                }/check/${
-                                                                    notification.recordId
-                                                                }`}
-                                                                onClick={() =>
-                                                                    setIsActive(false)
-                                                                }
-                                                                className={
-                                                                    ' text-primary font-semibold text-sm w-full'
-                                                                }
-                                                                style={{ textAlign: 'end' }}
-                                                            >
-                                                                View
-                                                            </Link>
-                                                        </div>
-
-                                                    )
-                                                }
-
-                                            </>
-                                        )
-                                    }
-                                )}
+                                {notifications.reverse().map((notification) => {
+                                    return (
+                                        <>
+                                            {notification.status === 1 && (
+                                                <div
+                                                    className={
+                                                        ' py-2 px-2 border mb-3 border-b-4 border-b-primary shadow-md rounded-md w-full'
+                                                    }
+                                                >
+                                                    <p>{notification.title}</p>
+                                                    <Link
+                                                        to={`/${
+                                                            notificationTypes.find(
+                                                                (ntf) =>
+                                                                    ntf.value ===
+                                                                    notification.notificationType
+                                                            ).name
+                                                        }/check/${
+                                                            notification.recordId
+                                                        }`}
+                                                        onClick={() =>
+                                                            setIsActive(false)
+                                                        }
+                                                        className={
+                                                            ' text-primary font-semibold text-sm w-full'
+                                                        }
+                                                        style={{
+                                                            textAlign: 'end',
+                                                        }}
+                                                    >
+                                                        View
+                                                    </Link>
+                                                </div>
+                                            )}
+                                        </>
+                                    )
+                                })}
                             </>
                         ) : (
                             <h1>You dont have any notification ...</h1>

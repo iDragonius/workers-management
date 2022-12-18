@@ -2,14 +2,17 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { userData } from '../../store/slices/authSlice.js'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { getEmployee, updateEmployee } from '../../http/api/employee.js'
+import { getEmployee } from '../../http/api/employee.js'
 import { toast } from 'react-toastify'
 import { genderTypes } from '../../config/index.js'
 import Back from '../../components/ui/Back.jsx'
+import { setEmployeeStatus } from '../../http/api/notification.js'
+import { notificationsData } from '../../store/slices/notificationSlice.js'
 
 const StaffCheck = () => {
     const user = useSelector(userData)
     const navigate = useNavigate()
+    const notifications = useSelector(notificationsData)
     const [data, setData] = useState({
         name: '',
         surname: '',
@@ -25,9 +28,15 @@ const StaffCheck = () => {
         status: 1,
     })
     const change = async (status) => {
-        await updateEmployee({
-            ...data,
-            status,
+        let notificationId = notifications.find(
+            (ntf) =>
+                ntf.recordId === +location.pathname.split('/').at(-1) &&
+                ntf.notificationType === 1
+        ).id
+
+        await setEmployeeStatus({
+            data: { ...data, status },
+            notificationId,
         }).then((res) => {
             if (res.status === 200) {
                 toast.success(

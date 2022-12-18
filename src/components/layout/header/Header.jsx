@@ -52,9 +52,16 @@ const Header = () => {
                     icon={<CgProfile size={24} color={'#000'} />}
                     whiteIcon={<CgProfile size={24} color={'#fff'} />}
                 />
-                <Notifications
-                    icon={<IoMdNotificationsOutline size={24} color={'#000'} />}
-                />
+                <RoleCheckerUI routeRole={rolesEnums.HR}>
+                    <Notifications
+                        icon={
+                            <IoMdNotificationsOutline
+                                size={24}
+                                color={'#000'}
+                            />
+                        }
+                    />
+                </RoleCheckerUI>
             </div>
         </div>
     )

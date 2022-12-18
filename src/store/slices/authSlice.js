@@ -5,10 +5,11 @@ const authSlice = createSlice({
     initialState: {
         name: '',
         token: '',
-        employeeId:'',
+        employeeId: '',
         email: '',
         id: 0,
         role: '4',
+        status: 1,
         loading: true,
     },
     reducers: {
@@ -28,6 +29,7 @@ const authSlice = createSlice({
         setRole: (state, action) => {
             state.role = action.payload.role
             state.employeeId = action.payload.employeeId
+            state.status = +action.payload.status
         },
         toggleLoading: (state, action) => {
             state.loading = action.payload
@@ -36,7 +38,7 @@ const authSlice = createSlice({
             state.name = null
             state.token = null
             state.email = null
-            state.employeeId =0
+            state.employeeId = 0
             state.id = 0
             localStorage.removeItem('token')
             localStorage.removeItem('name')
@@ -53,8 +55,8 @@ export const { setUserData, deleteUserData, setRole, toggleLoading } =
 
 export const userData = (state) => {
     return {
-        id:state.auth.id,
-        employeeId:state.auth.employeeId,
+        id: state.auth.id,
+        employeeId: state.auth.employeeId,
         name: state.auth.name,
         email: state.auth.email,
         token: state.auth.token,
@@ -63,3 +65,4 @@ export const userData = (state) => {
 
 export const userRole = (state) => state.auth.role
 export const pageLoading = (state) => state.auth.loading
+export const userStatus = (state) => state.auth.status

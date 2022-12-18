@@ -51,7 +51,16 @@ const SignIn = () => {
                 )
                 fetchRoles(+res.data?.loggedUser?.id)
                     .then((res) => {
-                        dispatch(setRole({role:res?.data?.operationClaims[0].name, employeeId:res?.data.employeeId}))
+                        dispatch(
+                            setRole({
+                                role:
+                                    res?.data.status === 1
+                                        ? 'Pending'
+                                        : res?.data?.operationClaims[0].name,
+                                employeeId: res?.data.employeeId,
+                                status: res?.data.status,
+                            })
+                        )
                     })
                     .finally(() => dispatch(toggleLoading(false)))
                 navigate('/')

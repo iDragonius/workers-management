@@ -65,7 +65,16 @@ const SignUp = () => {
                 toast.success('Successful!')
                 localStorage.setItem('token', res.data.accessToken.token)
                 fetchRoles(+res.data?.registeredUser?.id).then((res) => {
-                    dispatch(setRole({role:res?.data?.operationClaims[0].name, employeeId:res?.data.employeeId}))
+                    dispatch(
+                        setRole({
+                            role:
+                                res?.data.status === 1
+                                    ? 'Pending'
+                                    : res?.data?.operationClaims[0].name,
+                            employeeId: res?.data.employeeId,
+                            status: res?.data.status,
+                        })
+                    )
                 })
 
                 navigate('/')
