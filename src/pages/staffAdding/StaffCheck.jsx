@@ -8,11 +8,14 @@ import { genderTypes } from '../../config/index.js'
 import Back from '../../components/ui/Back.jsx'
 import { setEmployeeStatus } from '../../http/api/notification.js'
 import { notificationsData } from '../../store/slices/notificationSlice.js'
+import { getAllDuties } from '../../http/api/duty.js'
 
 const StaffCheck = () => {
     const user = useSelector(userData)
     const navigate = useNavigate()
     const notifications = useSelector(notificationsData)
+    const [dutyData, setDutyData] = useState([])
+
     const [data, setData] = useState({
         name: '',
         surname: '',
@@ -26,6 +29,7 @@ const StaffCheck = () => {
         previousExperienceYear: '',
         previousExperienceMonth: '',
         status: 1,
+        dutyId: 0,
     })
     const change = async (status) => {
         let notificationId = notifications.find(
@@ -67,6 +71,15 @@ const StaffCheck = () => {
                 previousExperienceYear: res.data.previousExperienceYear,
                 previousExperienceMonth: res.data.previousExperienceMonth,
                 status: res.data.status,
+            })
+            getAllDuties().then((duties) => {
+                const temp = []
+
+                duties.data.map((duty) => {
+                    temp.push({ value: duty.id, name: duty.name })
+                })
+
+                setDutyData(temp)
             })
         })
     }, [])
@@ -305,6 +318,34 @@ const StaffCheck = () => {
                                     'w-full py-3 px-3 border  hover:border-primary border-b-4 border-b-primary shadow-md rounded-md outline-none'
                                 }
                             />
+                        </div>
+                        <div className={'flex flex-col mb-5 relative '}>
+                            <label
+                                className={
+                                    'text-gray-500 font-medium text-xs left-2 bg-white p-1 absolute -top-3'
+                                }
+                            >
+                                Duty
+                            </label>
+                            <select
+                                value={data.dutyId}
+                                name={'dutyId'}
+                                onChange={changeData}
+                                className={
+                                    'bg-white w-full py-4 px-3 border hover:border-primary  border-b-4 border-b-primary shadow-md rounded-md outline-none'
+                                }
+                            >
+                                {dutyData.map((type) => {
+                                    return (
+                                        <option
+                                            value={type.value}
+                                            key={type.value}
+                                        >
+                                            {type.name}
+                                        </option>
+                                    )
+                                })}
+                            </select>
                         </div>
                     </div>
                 </div>

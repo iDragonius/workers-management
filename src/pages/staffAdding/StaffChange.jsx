@@ -8,9 +8,12 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { getEmployee, updateEmployee } from '../../http/api/employee.js'
 import { genderTypes } from '../../config'
 import { toast } from 'react-toastify'
+import { getAllDuties } from '../../http/api/duty.js'
+import { vacationTypes } from '../../config/vacationTypes.js'
 const StaffChange = () => {
     const user = useSelector(userData)
     const navigate = useNavigate()
+    const [dutyData, setDutyData] = useState([])
     const [data, setData] = useState({
         name: '',
         surname: '',
@@ -24,6 +27,7 @@ const StaffChange = () => {
         previousExperienceYear: '',
         previousExperienceMonth: '',
         status: 1,
+        dutyId: 0,
     })
     const change = async (status) => {
         await updateEmployee({
@@ -59,6 +63,16 @@ const StaffChange = () => {
                 previousExperienceYear: res.data.previousExperienceYear,
                 previousExperienceMonth: res.data.previousExperienceMonth,
                 status: res.data.status,
+                dutyId: res.data.dutyId,
+            })
+            getAllDuties().then((duties) => {
+                const temp = []
+
+                duties.data.map((duty) => {
+                    temp.push({ value: duty.id, name: duty.name })
+                })
+
+                setDutyData(temp)
             })
         })
     }, [])
@@ -292,6 +306,31 @@ const StaffChange = () => {
                                 'w-full py-3 px-3 border  hover:border-primary border-b-4 border-b-primary shadow-md rounded-md outline-none'
                             }
                         />
+                    </div>
+                    <div className={'flex flex-col mb-5 relative '}>
+                        <label
+                            className={
+                                'text-gray-500 font-medium text-xs left-2 bg-white p-1 absolute -top-3'
+                            }
+                        >
+                            Duty
+                        </label>
+                        <select
+                            value={data.dutyId}
+                            name={'dutyId'}
+                            onChange={changeData}
+                            className={
+                                'bg-white w-full py-4 px-3 border hover:border-primary  border-b-4 border-b-primary shadow-md rounded-md outline-none'
+                            }
+                        >
+                            {dutyData.map((type) => {
+                                return (
+                                    <option value={type.value} key={type.value}>
+                                        {type.name}
+                                    </option>
+                                )
+                            })}
+                        </select>
                     </div>
                 </div>
             </div>
