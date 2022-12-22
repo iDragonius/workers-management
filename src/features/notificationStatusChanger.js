@@ -28,7 +28,11 @@ export default ({
             notificationId,
             status,
         }).then(() => {
-            updateFnc(data).then(() => {
+            updateFnc({
+                ...data,
+                id: +location.pathname.split('/').at(-1),
+                employeeId: currUser.id,
+            }).then(() => {
                 toast.success(
                     `${
                         currUser.name + ' ' + currUser.surname
@@ -52,7 +56,11 @@ export default ({
                     notificationId,
                     status,
                 }).then(() => {
-                    updatePermission(data).then(() => {
+                    updateFnc({
+                        ...data,
+                        id: +location.pathname.split('/').at(-1),
+                        employeeId: currUser.id,
+                    }).then(() => {
                         toast.success(
                             `${
                                 currUser.name +

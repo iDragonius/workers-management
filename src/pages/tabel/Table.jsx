@@ -4,7 +4,7 @@ const Table = ({ data, rows }) => {
     return (
         <div
             className={
-                'overflow-x-auto my-10 max-w-[800px] max-h-[600px] rounded-xl'
+                'overflow-x-auto my-10 max-w-screen max-h-[600px] rounded-xl'
             }
         >
             <table className={'border  rounded-xl '}>
