@@ -11,19 +11,9 @@ import RoleCheckerUI from '../../../features/roles/RoleCheckerUI'
 import { rolesEnums } from '../../../config'
 
 const Header = () => {
-    const [time, setTime] = useState('Morning')
     const [proverb, setProver] = useState('')
-    const data = useSelector(userData)
 
     useEffect(() => {
-        const time = new Date().getHours()
-        if (time > 0 && time <= 12) {
-            setTime('Morning')
-        } else if (time > 12 && time < 18) {
-            setTime('Afternoon')
-        } else {
-            setTime('Night')
-        }
         const randomProverbIndex = Math.floor(Math.random() * wiseWords.length)
         setProver(wiseWords[randomProverbIndex])
     }, [])
@@ -34,9 +24,7 @@ const Header = () => {
             }
         >
             <div>
-                <h1 className={'text-2xl font-bold'}>
-                    Good {time}, {data.name?.split(' ')[0]}!{' '}
-                </h1>
+                <h1 className={'text-2xl font-bold'}>Have a good day !</h1>
                 <p className={'opacity-60'}>{proverb}</p>
             </div>
             <div className={'flex'}>

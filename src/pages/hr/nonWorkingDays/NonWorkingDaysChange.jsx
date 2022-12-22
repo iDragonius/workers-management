@@ -9,10 +9,11 @@ import Button from '../../../components/ui/buttons/button/Button.jsx'
 import { useLocation, useNavigate } from 'react-router-dom'
 import Back from '../../../components/ui/Back.jsx'
 import { toast } from 'react-toastify'
+import dayjs from 'dayjs'
 
 const NonWorkingDaysChange = () => {
     const [data, setData] = useState({
-        date: '',
+        date: dayjs().format('YYYY-MM-DD'),
         dayType: 1,
         id: 0,
     })

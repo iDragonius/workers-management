@@ -3,10 +3,11 @@ import { addOvertime } from '../../http/api/overtimes'
 import Button from '../../components/ui/buttons/button/Button'
 import { useSelector } from 'react-redux'
 import { userData } from '../../store/slices/authSlice.js'
+import dayjs from 'dayjs'
 
 const WorkingHoursAdd = () => {
     const user = useSelector(userData)
-    const [currDate, setCurrDate] = useState(new Date())
+    const [currDate, setCurrDate] = useState(dayjs().format('YYYY-MM-DD'))
     const [hours, setHours] = useState(null)
 
     const add = async () => {

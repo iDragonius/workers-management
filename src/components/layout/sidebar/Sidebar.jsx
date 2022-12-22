@@ -149,17 +149,19 @@ const Sidebar = () => {
                                     <CgFileDocument size={24} color={'#fff'} />
                                 }
                             />
+                            <Navigation
+                                name={'Salary'}
+                                path={'/salary'}
+                                active={active}
+                                setActive={setActive}
+                                icon={
+                                    <GiReceiveMoney size={24} color={'#000'} />
+                                }
+                                whiteIcon={
+                                    <GiReceiveMoney size={24} color={'#fff'} />
+                                }
+                            />
                         </RoleCheckerUI>
-                        <Navigation
-                            name={'Salary'}
-                            path={'/salary'}
-                            active={active}
-                            setActive={setActive}
-                            icon={<GiReceiveMoney size={24} color={'#000'} />}
-                            whiteIcon={
-                                <GiReceiveMoney size={24} color={'#fff'} />
-                            }
-                        />
                     </RoleCheckerUI>
                 </div>
 

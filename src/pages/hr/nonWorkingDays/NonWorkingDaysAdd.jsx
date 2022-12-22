@@ -4,10 +4,11 @@ import Button from '../../../components/ui/buttons/button/Button.jsx'
 import { addNonWorkingDay } from '../../../http/api/calendarDays.js'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import dayjs from 'dayjs'
 
 const NonWorkingDaysAdd = () => {
     const [data, setData] = useState({
-        date: '',
+        date: dayjs().format('YYYY-MM-DD'),
         dayType: 1,
     })
     const navigate = useNavigate()

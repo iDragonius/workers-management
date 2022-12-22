@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { permissionTypes } from '../../config/index.js'
 import Button from '../../components/ui/buttons/button/Button.jsx'
 import { useSelector } from 'react-redux'
 import { userData } from '../../store/slices/authSlice.js'
-import { addPermission } from '../../http/api/permissions.js'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { getEmployee, updateEmployee } from '../../http/api/employee.js'
 import { genderTypes } from '../../config'
 import { toast } from 'react-toastify'
 import { getAllDuties } from '../../http/api/duty.js'
-import { vacationTypes } from '../../config/vacationTypes.js'
 const StaffChange = () => {
     const user = useSelector(userData)
     const navigate = useNavigate()
@@ -27,7 +24,7 @@ const StaffChange = () => {
         previousExperienceYear: '',
         previousExperienceMonth: '',
         status: 1,
-        dutyId: 0,
+        dutyId: 1,
     })
     const change = async (status) => {
         await updateEmployee({

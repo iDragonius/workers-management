@@ -29,7 +29,7 @@ const StaffCheck = () => {
         previousExperienceYear: '',
         previousExperienceMonth: '',
         status: 1,
-        dutyId: 0,
+        dutyId: 1,
     })
     const change = async (status) => {
         let notificationId = notifications.find(

@@ -5,13 +5,14 @@ import { userData } from '../../store/slices/authSlice.js'
 import { addIllness } from '../../http/api/illness.js'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import dayjs from 'dayjs'
 
 const IllnessAdd = () => {
     const user = useSelector(userData)
     const navigate = useNavigate()
     const [data, setData] = useState({
-        startDate: '',
-        endDate: '',
+        startDate: dayjs().format('YYYY-MM-DD'),
+        endDate: dayjs().format('YYYY-MM-DD'),
         note: '',
         documentNumber: '',
         clinicName: '',

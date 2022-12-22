@@ -6,13 +6,13 @@ import { dayTypes, permissionTypes } from '../../config/index.js'
 import { addPermission } from '../../http/api/permissions.js'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
+import dayjs from 'dayjs'
 
 const PermissionsAdd = () => {
     const user = useSelector(userData)
     const navigate = useNavigate()
     const [data, setData] = useState({
-        startDate: '',
-        endDate: '',
+        startDate: dayjs().format('YYYY-MM-DD'),
         count: '',
         permissionType: '1',
     })
@@ -50,24 +50,6 @@ const PermissionsAdd = () => {
                         value={data.startDate}
                         name={'startDate'}
                         onChange={changeData}
-                        className={
-                            'w-full py-3 px-3 border hover:border-primary  border-b-4 border-b-primary shadow-md rounded-md  outline-none'
-                        }
-                    />
-                </div>
-                <div className={'flex flex-col mb-5 relative'}>
-                    <label
-                        className={
-                            'text-gray-500 font-medium  text-xs left-2 bg-white p-1 absolute -top-3'
-                        }
-                    >
-                        End
-                    </label>
-                    <input
-                        value={data.endDate}
-                        name={'endDate'}
-                        onChange={changeData}
-                        type="date"
                         className={
                             'w-full py-3 px-3 border hover:border-primary  border-b-4 border-b-primary shadow-md rounded-md  outline-none'
                         }

@@ -15,7 +15,6 @@ const PermissionsCheck = () => {
     const dispatch = useDispatch()
     const [data, setData] = useState({
         startDate: '',
-        endDate: '',
         count: '',
         permissionType: 1,
         employeeId: 0,
@@ -27,7 +26,6 @@ const PermissionsCheck = () => {
             (permission) => {
                 setData({
                     startDate: permission.data.startDate.slice(0, 10),
-                    endDate: permission.data.endDate.slice(0, 10),
                     count: permission.data.count,
                     permissionType: +permission.data.permissionType,
                     id: permission.data.id,
@@ -95,24 +93,6 @@ const PermissionsCheck = () => {
                             value={data.startDate}
                             name={'startDate'}
                             onChange={changeData}
-                            className={
-                                'w-full py-3 px-3 border hover:border-primary  border-b-4 border-b-primary shadow-md rounded-md  outline-none'
-                            }
-                        />
-                    </div>
-                    <div className={'flex flex-col mb-5 relative'}>
-                        <label
-                            className={
-                                'text-gray-500 font-medium  text-xs left-2 bg-white p-1 absolute -top-3'
-                            }
-                        >
-                            End
-                        </label>
-                        <input
-                            value={data.endDate}
-                            name={'endDate'}
-                            onChange={changeData}
-                            type="date"
                             className={
                                 'w-full py-3 px-3 border hover:border-primary  border-b-4 border-b-primary shadow-md rounded-md  outline-none'
                             }

@@ -8,13 +8,14 @@ import { addVacation } from '../../http/api/vacation.js'
 import { vacationTypes } from '../../config/vacationTypes.js'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
+import dayjs from 'dayjs'
 
 const VacationAdd = () => {
     const user = useSelector(userData)
     const navigate = useNavigate()
     const [data, setData] = useState({
-        startDate: '',
-        endDate: '',
+        startDate: dayjs().format('YYYY-MM-DD'),
+        endDate: dayjs().format('YYYY-MM-DD'),
         count: '',
         vacationType: 1,
         note: '',
