@@ -32,6 +32,10 @@ const SignUp = () => {
 
     const signUpCheck = async (e) => {
         e.preventDefault()
+        if (data.password !== data.passwordConfirm) {
+            toast.warn('Password need be equal')
+            return
+        }
         await $api
             .post('/auth/registercheck', { ...data })
             .then((res) => {
@@ -45,6 +49,7 @@ const SignUp = () => {
     const signUp = async (e) => {
         e.preventDefault()
         if (!data) return
+
         dispatch(toggleLoading(true))
         await $api
             .post('/UserKeys/registerwithkey', { ...data, code: token })

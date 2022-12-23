@@ -7,6 +7,7 @@ import { addPermission } from '../../http/api/permissions.js'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import dayjs from 'dayjs'
+import bussinessException from '../../features/bussinessException.js'
 
 const PermissionsAdd = () => {
     const user = useSelector(userData)
@@ -21,10 +22,16 @@ const PermissionsAdd = () => {
             ...data,
             permissionType: +data.permissionType,
             employeeId: user.employeeId,
-        }).then(() => {
-            toast.success(`Permission successfully added!`)
-            navigate('/permissions/list')
         })
+            .then(() => {
+                toast.success(`Permission successfully added!`)
+                navigate('/permissions/list')
+            })
+            .catch((err) => {
+                if (err.response.status === 400) {
+                    bussinessException(err.response.data.Detail)
+                }
+            })
     }
     const changeData = (e) => {
         setData({ ...data, [e.target.name]: e.target.value })

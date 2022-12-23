@@ -9,6 +9,7 @@ import { vacationTypes } from '../../config/vacationTypes.js'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import dayjs from 'dayjs'
+import bussinessException from '../../features/bussinessException.js'
 
 const VacationAdd = () => {
     const user = useSelector(userData)
@@ -24,10 +25,16 @@ const VacationAdd = () => {
         await addVacation({
             ...data,
             employeeId: user.employeeId,
-        }).then(() => {
-            toast.success('Vacation added successfully!')
-            navigate('/vacation/list')
         })
+            .then(() => {
+                toast.success('Vacation added successfully!')
+                navigate('/vacation/list')
+            })
+            .catch((err) => {
+                if (err.response.status === 400) {
+                    bussinessException(err.response.data.Detail)
+                }
+            })
     }
     const changeData = (e) => {
         setData({ ...data, [e.target.name]: e.target.value })

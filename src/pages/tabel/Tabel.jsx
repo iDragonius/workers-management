@@ -53,6 +53,7 @@ const Tabel = () => {
         'Additional W/H',
         'Permission hours',
     ]
+
     const check = async () => {
         await getReportByDate(date).then((res) => {
             const temp = []
@@ -112,7 +113,9 @@ const Tabel = () => {
                     <Button label={'Get Tabel'} primary onClick={check} />
                 </div>
             </div>
-            {data.length > 0 && <Table data={data} rows={rows} />}
+            {data.length > 0 && (
+                <Table data={data} rows={rows} name={'Tabel'} />
+            )}
         </>
     )
 }

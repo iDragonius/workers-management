@@ -7,6 +7,7 @@ import { getEmployee, updateEmployee } from '../../http/api/employee.js'
 import { genderTypes } from '../../config'
 import { toast } from 'react-toastify'
 import { getAllDuties } from '../../http/api/duty.js'
+import dayjs from 'dayjs'
 const StaffChange = () => {
     const user = useSelector(userData)
     const navigate = useNavigate()
@@ -19,7 +20,7 @@ const StaffChange = () => {
         address: '',
         phone: '',
         gender: 1,
-        birthDay: '',
+        birthDay: dayjs().format('YYYY-MM-DD'),
         dailyWorkHour: '',
         previousExperienceYear: '',
         previousExperienceMonth: '',
@@ -178,7 +179,7 @@ const StaffChange = () => {
                             name={'address'}
                             onChange={changeData}
                             type="text"
-                            placeholder={'John'}
+                            placeholder={'Xırdalan...'}
                             className={
                                 'w-full py-3 px-3 border  hover:border-primary border-b-4 border-b-primary shadow-md rounded-md outline-none'
                             }
@@ -197,7 +198,7 @@ const StaffChange = () => {
                             name={'phone'}
                             onChange={changeData}
                             type="text"
-                            placeholder={'Doe'}
+                            placeholder={'+994503213232'}
                             className={
                                 'w-full py-3 px-3 border  hover:border-primary border-b-4 border-b-primary shadow-md rounded-md outline-none'
                             }

@@ -66,6 +66,7 @@ import IllnessView from '../../pages/illness/IllnessView.jsx'
 import VacationView from '../../pages/vacation/VacationView.jsx'
 import PermissionView from '../../pages/permissions/PermissionView.jsx'
 import StaffCheck from '../../pages/staffAdding/StaffCheck.jsx'
+import WorkingHoursAddForm from '../../pages/workingHours/WorkingHoursAddForm.jsx'
 
 const Navigation = () => {
     return (
@@ -76,7 +77,6 @@ const Navigation = () => {
             </Route>
             <Route element={<AuthRequire />}>
                 <Route path={'/'} element={<MainLayout />}>
-                    <Route path={'/'} element={<Dashboard />} />
                     <Route path={'profile/'} element={<Profile />}>
                         <Route path={'main-info'} element={<MainInfo />} />
                         <Route
@@ -87,6 +87,8 @@ const Navigation = () => {
 
                     <Route element={<RoleWrapper routeRole={'4'} />}>
                         <Route element={<RoleWrapper routeRole={'3'} />}>
+                            <Route path={'/'} element={<Dashboard />} />
+
                             <Route element={<RoleWrapper routeRole={'2'} />}>
                                 <Route
                                     path={'notifications'}
@@ -285,6 +287,10 @@ const Navigation = () => {
                                 />
                             </Route>
                             <Route path={'add'} element={<WorkingHoursAdd />} />
+                            <Route
+                                path={'add/:id'}
+                                element={<WorkingHoursAddForm />}
+                            />
                         </Route>
                         <Route path={'illness/'} element={<Illness />}>
                             <Route path={'list'} element={<IllnessList />} />

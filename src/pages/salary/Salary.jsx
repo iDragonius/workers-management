@@ -114,7 +114,9 @@ const Salary = () => {
                     <Button label={'Get Tabel'} primary onClick={check} />
                 </div>
             </div>
-            {data.length > 0 && <Table data={data} rows={rows} />}
+            {data.length > 0 && (
+                <Table data={data} rows={rows} name={'Salary'} />
+            )}
         </>
     )
 }

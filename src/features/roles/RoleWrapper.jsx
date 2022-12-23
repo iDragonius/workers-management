@@ -9,7 +9,13 @@ const RoleWrapper = ({ routeRole }) => {
     if (roleCheck) {
         return <Outlet />
     } else {
-        return <Navigate to="/" sate={{ from: location }} replace />
+        return (
+            <Navigate
+                to="/profile/main-info"
+                sate={{ from: location }}
+                replace
+            />
+        )
     }
 }
 

@@ -10,6 +10,9 @@ export const getAllEmployees = async () => {
     return await $api.get(`${PREFIX}/getall`)
 }
 
-export const updateEmployee = async  (data) =>{
-    return await  $api.post(`${PREFIX}/update`, data)
+export const updateEmployee = async (data) => {
+    return await $api.post(`${PREFIX}/update`, data)
+}
+export const changeStatusEmployee = async (data) => {
+    return await $api.post(`${PREFIX}/changeworkstatus`, data)
 }

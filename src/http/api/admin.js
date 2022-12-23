@@ -27,6 +27,9 @@ export const fetchRoles = async (id) => {
 export const getRoles = async () => {
     return await $api.get(PREFIX + 'getallroles')
 }
+export const getAllKeys = async () => {
+    return await $api.get('/UserKeys/getall')
+}
 
 export const fetchUsers = async () => {
     return await $api.get(PREFIX + '/getallusers')

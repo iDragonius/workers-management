@@ -2,12 +2,15 @@ import $api from '../index'
 
 const PREFIX = '/Overtimes'
 
-export const addOvertime = async ({ employeeId, date, hourCount }) => {
-    return await $api.post(`${PREFIX}/add`, { employeeId, date, hourCount })
+export const addOvertime = async (data) => {
+    return await $api.post(`${PREFIX}/add`, data)
 }
 
 export const getUserOvertimes = async ({ employeeId }) => {
     return await $api.get(`${PREFIX}/getbyemployee?employeeId=${employeeId}`)
+}
+export const getAllOvertimes = async () => {
+    return await $api.get(`${PREFIX}/getall`)
 }
 export const getOvertime = async (id) => {
     return await $api.get(`${PREFIX}/get?id=${id}`)

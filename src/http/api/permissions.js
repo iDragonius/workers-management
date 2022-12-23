@@ -5,7 +5,9 @@ const PREFIX = '/Permissions'
 export const getPermission = async (id) => {
     return await $api.get(`${PREFIX}/get/?id=${id}`)
 }
-
+export const getAllPermissions = async () => {
+    return await $api.get(`${PREFIX}/getall`)
+}
 export const getUserPermissions = async (id) => {
     return await $api.get(`${PREFIX}/getbyemployee?employeeId=${id}`)
 }

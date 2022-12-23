@@ -9,6 +9,7 @@ import Back from '../../components/ui/Back.jsx'
 import { setEmployeeStatus } from '../../http/api/notification.js'
 import { notificationsData } from '../../store/slices/notificationSlice.js'
 import { getAllDuties } from '../../http/api/duty.js'
+import dayjs from 'dayjs'
 
 const StaffCheck = () => {
     const user = useSelector(userData)
@@ -24,7 +25,7 @@ const StaffCheck = () => {
         address: '',
         phone: '',
         gender: 1,
-        birthDay: '',
+        birthDay: dayjs().format('YYYY-MM-DD'),
         dailyWorkHour: '',
         previousExperienceYear: '',
         previousExperienceMonth: '',
@@ -190,7 +191,7 @@ const StaffCheck = () => {
                                 name={'address'}
                                 onChange={changeData}
                                 type="text"
-                                placeholder={'John'}
+                                placeholder={'Xırdalan...'}
                                 className={
                                     'w-full py-3 px-3 border  hover:border-primary border-b-4 border-b-primary shadow-md rounded-md outline-none'
                                 }
@@ -209,7 +210,7 @@ const StaffCheck = () => {
                                 name={'phone'}
                                 onChange={changeData}
                                 type="text"
-                                placeholder={'Doe'}
+                                placeholder={'+994503213232'}
                                 className={
                                     'w-full py-3 px-3 border  hover:border-primary border-b-4 border-b-primary shadow-md rounded-md outline-none'
                                 }

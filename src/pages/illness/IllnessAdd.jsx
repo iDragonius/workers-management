@@ -6,6 +6,7 @@ import { addIllness } from '../../http/api/illness.js'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import dayjs from 'dayjs'
+import bussinessException from '../../features/bussinessException.js'
 
 const IllnessAdd = () => {
     const user = useSelector(userData)
@@ -19,10 +20,16 @@ const IllnessAdd = () => {
         payPercent: '',
     })
     const add = async () => {
-        await addIllness({ ...data, employeeId: user.employeeId }).then(() => {
-            toast.success('Bulleten added successfully!')
-            navigate('/illness/list')
-        })
+        await addIllness({ ...data, employeeId: user.employeeId })
+            .then(() => {
+                toast.success('Bulleten added successfully!')
+                navigate('/illness/list')
+            })
+            .catch((err) => {
+                if (err.response.status === 400) {
+                    bussinessException(err.response.data.Detail)
+                }
+            })
     }
     const changeData = (e) => {
         setData({ ...data, [e.target.name]: e.target.value })

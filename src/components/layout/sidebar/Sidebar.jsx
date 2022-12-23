@@ -47,15 +47,16 @@ const Sidebar = () => {
                             'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
                         }
                     />
-
-                    <Navigation
-                        name={'Dashboard'}
-                        path={'/'}
-                        active={active}
-                        setActive={setActive}
-                        whiteIcon={<MdDashboard size={24} color={'#fff'} />}
-                        icon={<MdDashboard size={24} color={'#000'} />}
-                    />
+                    <RoleCheckerUI routeRole={rolesEnums.MUHASIB}>
+                        <Navigation
+                            name={'Dashboard'}
+                            path={'/'}
+                            active={active}
+                            setActive={setActive}
+                            whiteIcon={<MdDashboard size={24} color={'#fff'} />}
+                            icon={<MdDashboard size={24} color={'#000'} />}
+                        />
+                    </RoleCheckerUI>
                     <RoleCheckerUI routeRole={rolesEnums.USER}>
                         <RoleCheckerUI routeRole={rolesEnums.HR}>
                             <Navigation
@@ -126,16 +127,26 @@ const Sidebar = () => {
                                 />
                             }
                         />
-                        <Navigation
-                            name={'Working Hours'}
-                            path={'/working-hours/list'}
-                            active={active}
-                            setActive={setActive}
-                            icon={<BsHourglassSplit size={24} color={'#000'} />}
-                            whiteIcon={
-                                <BsHourglassSplit size={24} color={'#fff'} />
-                            }
-                        />
+                        <RoleCheckerUI routeRole={rolesEnums.HR}>
+                            <Navigation
+                                name={'Working Hours'}
+                                path={'/working-hours/list'}
+                                active={active}
+                                setActive={setActive}
+                                icon={
+                                    <BsHourglassSplit
+                                        size={24}
+                                        color={'#000'}
+                                    />
+                                }
+                                whiteIcon={
+                                    <BsHourglassSplit
+                                        size={24}
+                                        color={'#fff'}
+                                    />
+                                }
+                            />
+                        </RoleCheckerUI>
                         <RoleCheckerUI routeRole={rolesEnums.MUHASIB}>
                             <Navigation
                                 name={'Tabel'}
