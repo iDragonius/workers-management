@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import dayjs from 'dayjs'
-import { getReportByDate } from '../../http/api/reports.js'
+import {
+    getReportByDate,
+    getReportSalaryByDate,
+} from '../../http/api/reports.js'
 import Button from '../../components/ui/buttons/button/Button.jsx'
 import Table from '../tabel/Table.jsx'
 
@@ -12,70 +15,44 @@ const Salary = () => {
         'Name',
         'Surname',
         'Father Name',
-        'Salary',
         'Duty',
-        'State',
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12,
-        13,
-        14,
-        15,
-        16,
-        17,
-        18,
-        19,
-        20,
-        21,
-        22,
-        23,
-        24,
-        25,
-        26,
-        27,
-        28,
-        29,
-        30,
-        31,
-        'Working Days',
-        'Working Hours',
+        'Salary',
+        'Total W/H',
+        'Work hours',
+        'Computed salary',
+        'Reward',
         'Vacation',
-        'Disease',
-        'Additional W/H',
-        'Permission hours',
+        'Sum Salary',
+        'Incoming Tax',
+        'Pension Fond',
+        'ISH',
+        'ITSH',
+        'Total Tax',
+        'Value to paid',
     ]
     const check = async () => {
-        await getReportByDate(date).then((res) => {
+        await getReportSalaryByDate(date).then((res) => {
             const temp = []
             res.data.rows.map((row) => {
-                const dayTemp = []
-                row.days.map((day) => {
-                    dayTemp.push(day)
-                })
                 temp.push([
                     row.no,
                     row.name,
                     row.surname,
                     row.fatherName,
-                    row.salary,
                     row.duty,
-                    row.state,
-                    ...dayTemp,
-                    row.totalWorkDays,
+                    row.salary,
                     row.totalWorkHours,
-                    row.vacationDays,
-                    row.diseaseDays,
-                    row.overtime,
-                    row.permissionHours,
+                    row.workHours,
+                    row.computedSalary,
+                    row.reward,
+                    row.vacation,
+                    row.sumSalary,
+                    row.incomingTax,
+                    row.pensionFond,
+                    row.ish,
+                    row.itsh,
+                    row.totalTax,
+                    row.valueToPaid,
                 ])
             })
             setData(temp)
